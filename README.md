@@ -4,7 +4,7 @@
 
 [![版本](https://img.shields.io/badge/version-3.3.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![License](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
-[![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge-orange)](https://clawhub.ai/skills/skill-forge)
+[![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
 ## 功能
 
@@ -19,7 +19,7 @@
 
 ```bash
 # ClawHub 安装
-clawhub install skill-forge
+clawhub install skill-forge-ai
 
 # 或手动安装
 git clone https://github.com/EdwardWason/skill-forge.git
@@ -108,7 +108,7 @@ MIT-0 © 2026 AI花生
 
 [![Version](https://img.shields.io/badge/version-3.3.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![License](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
-[![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge-orange)](https://clawhub.ai/skills/skill-forge)
+[![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
 ## Features
 
@@ -123,7 +123,7 @@ MIT-0 © 2026 AI花生
 
 ```bash
 # Install via ClawHub
-clawhub install skill-forge
+clawhub install skill-forge-ai
 
 # Or manual install
 git clone https://github.com/EdwardWason/skill-forge.git
