@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.0] - 2026-06-11
+
+### Added
+- Chinese trigger words: 技能熔炉/熔炉创建/锻造技能/新建熔炉/熔炉技能 — completely separates from built-in skill-creator
+- "何时触发" section with explicit trigger word list and anti-confusion rules
+- Bilingual description: Chinese trigger keywords front-loaded for reliable auto-triggering
+
+### Changed
+- Title changed from "Skill Forge" to "技能熔炉" — Chinese-first branding
+- Description rewritten: Chinese trigger words first, English Do NOT scope preserved
+- All section headers translated to Chinese for consistency
+- Version bumped from v3.3 to v3.4
+
 ## [3.3.0] - 2026-06-07
 
 ### Added
