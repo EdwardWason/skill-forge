@@ -1,10 +1,14 @@
-# Skill Forge v3.3
+# 技能熔炉 v3.4
 
 > 高质量 Skill 锻造引擎 — 自适应访谈 → 创建 → 自测验证 → 同类比对，全流程交付可自动触发、稳定输出的 Skill
 
-[![版本](https://img.shields.io/badge/version-3.3.0-blue)](https://github.com/EdwardWason/skill-forge)
-[![License](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
+[![版本](https://img.shields.io/badge/version-3.4.0-blue)](https://github.com/EdwardWason/skill-forge)
+[![许可证](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
+
+## 触发词
+
+说以下任意词汇即可自动触发技能熔炉：**技能熔炉** / **熔炉创建** / **锻造技能** / **新建熔炉** / **熔炉技能**
 
 ## 功能
 
@@ -102,13 +106,17 @@ MIT-0 © 2026 AI花生
 
 ---
 
-# Skill Forge
+# Skill Forge (技能熔炉) v3.4
 
 > High-quality Skill forging engine — adaptive interview → creation → self-validation → peer benchmarking, delivering Skills that auto-trigger reliably and produce stable, structured output.
 
-[![Version](https://img.shields.io/badge/version-3.3.0-blue)](https://github.com/EdwardWason/skill-forge)
+[![Version](https://img.shields.io/badge/version-3.4.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![License](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
+
+## Trigger Words
+
+Say any of these to auto-trigger Skill Forge: **技能熔炉** / **熔炉创建** / **锻造技能** / **新建熔炉** / **熔炉技能**
 
 ## Features
 
