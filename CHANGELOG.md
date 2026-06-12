@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.5.0] - 2026-06-12
+
+### Added
+- Three-entry trigger system: 技能熔炉(full pipeline) / 技能评估(evaluation only) / 技能发布(publishing only)
+- Phase 3: Publishing to GitHub + ClawHub (from skill-publisher, now integrated)
+- Entry detection logic: trigger word determines which Phase to start from
+- references/publishing-guide.md: merged from skill-publisher (repo structure + security audit + publish procedures)
+- skill-publisher as independent lightweight entry for "发布技能" trigger
+
+### Changed
+- Description rewritten with three trigger word groups for three scenarios
+- Title changed from "技能熔炉 v3.4" to "技能熔炉 v3.5"
+- Phase 2 now also serves as standalone "技能评估" entry
+- SKILL.md structure: 4 phases (0→1→2→3) instead of 3 phases (0→1→2)
+
 ## [3.4.0] - 2026-06-11
 
 ### Added
