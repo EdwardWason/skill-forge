@@ -1,7 +1,7 @@
 {
   "name": "skill-forge",
-  "description": "技能熔炉 — 锻造/评估/发布 Skill。三入口：技能熔炉(全流程) / 技能评估(比对) / 技能发布(推送)。",
-  "version": "3.5.0",
+  "description": "技能熔炉 — 锻造/评估/发布 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做比对；说 技能发布/发布技能 只做推送。",
+  "version": "3.6.0",
   "author": {
     "name": "AI花生"
   },
