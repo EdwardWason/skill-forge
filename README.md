@@ -1,8 +1,8 @@
-# 技能熔炉 v3.5
+# 技能熔炉 v3.6.0
 
 > 锻造 → 评估 → 发布，三入口全流程交付可自动触发、稳定输出的 Skill
 
-[![版本](https://img.shields.io/badge/version-3.5.0-blue)](https://github.com/EdwardWason/skill-forge)
+[![版本](https://img.shields.io/badge/version-3.6.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![许可证](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
@@ -10,7 +10,7 @@
 
 | 触发词 | 场景 | 执行流程 |
 |--------|------|---------|
-| **技能熔炉** / 熔炉创建 / 锻造技能 | 从零创建到发布全流程 | Phase 0→1→2→3 |
+| **技能熔炉** | 从零创建到发布全流程 | Phase 0→1→2→3 |
 | **技能评估** / skill评估 / 评估技能 | 已有Skill，评估质量 | Phase 2（SkillHub比对+腾讯9维度） |
 | **技能发布** / 发布技能 | 已有Skill，推送发布 | Phase 3（GitHub+ClawHub） |
 
@@ -110,11 +110,11 @@ MIT-0 © 2026 AI花生
 
 ---
 
-# Skill Forge (技能熔炉) v3.5
+# Skill Forge (技能熔炉) v3.6.0
 
 > Forge → Evaluate → Publish, three-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output.
 
-[![Version](https://img.shields.io/badge/version-3.5.0-blue)](https://github.com/EdwardWason/skill-forge)
+[![Version](https://img.shields.io/badge/version-3.6.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![License](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
@@ -122,7 +122,7 @@ MIT-0 © 2026 AI花生
 
 | Trigger Words | Scenario | Pipeline |
 |---------------|----------|----------|
-| **技能熔炉** / 熔炉创建 / 锻造技能 | Create from scratch to publish | Phase 0→1→2→3 |
+| **技能熔炉** | Create from scratch to publish | Phase 0→1→2→3 |
 | **技能评估** / skill评估 / 评估技能 | Evaluate existing Skill | Phase 2 (SkillHub benchmarking + Tencent 9-dimension) |
 | **技能发布** / 发布技能 | Publish existing Skill | Phase 3 (GitHub + ClawHub) |
 
