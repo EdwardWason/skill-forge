@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.6.0] - 2026-06-12
+
+### Changed
+- Standardized trigger words: 技能熔炉 / 技能评估(skill评估,评估技能) / 技能发布(发布技能)
+- Removed redundant triggers (熔炉创建/锻造技能/新建熔炉/熔炉技能/推送技能/发布到GitHub/发布到ClawHub)
+- skill-publisher trigger words aligned: 技能发布/发布技能 only
+
 ## [3.5.0] - 2026-06-12
 
 ### Added
