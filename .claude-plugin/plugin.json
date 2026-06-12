@@ -1,7 +1,7 @@
 {
   "name": "skill-forge",
-  "description": "技能熔炉 — 锻造高质量 Skill 的专业工具。自适应访谈、递归搜索、自测验证、SkillHub同类比对。",
-  "version": "3.4.0",
+  "description": "技能熔炉 — 锻造/评估/发布 Skill。三入口：技能熔炉(全流程) / 技能评估(比对) / 技能发布(推送)。",
+  "version": "3.5.0",
   "author": {
     "name": "AI花生"
   },
