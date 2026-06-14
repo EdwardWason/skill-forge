@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.0.0] - 2026-06-12
+
+### Added
+- **Progressive Disclosure (渐进式披露)**: Iron Rule 3 upgraded from "150 lines" to "≤200 lines + 3-tier split (references/scripts/assets)"
+- **Extended frontmatter**: allowed-tools / model / effort / metadata fields for precise tool permission and thinking depth control
+- **scripts/ directory**: executable scripts for deterministic operations (checks, exports, batch processing)
+- **assets/ directory**: templates, schemas, example files, output styles
+- **6-layer validation pipeline**: Schema → Security (7 items) → Trigger test (5+3 real user queries) → Dogfood → Quantitative scoring (0-10) → Baseline comparison (with vs without Skill)
+- **Troubleshooting module**: optional 5th module in SKILL.md format (common errors + causes + solutions)
+- **Real user trigger test**: 5 positive + 3 negative real user phrasings (including colloquial, rewritten, vague expressions)
+
+### Changed
+- Iron Rule 3: "150行以内" → "渐进式披露 (≤200行 + references/scripts/assets 三级拆分)"
+- SKILL.md format: 4 modules → 4+1 modules (troubleshooting optional)
+- Step 4b: "3正向+3反向假问题" → "5条真实用户说法+3条反向测试"
+- Step 4: added Step 4d (quantitative scoring 0-10) and Step 4e (baseline comparison)
+- Tencent 9-dimension #9: "under 150 lines" → "under 200 lines + progressive disclosure"
+- Directory structure: references/ only → references/ + scripts/ + assets/
+
+### Removed
+- Hard 150-line limit (replaced by 200-line + progressive disclosure)
+
 ## [3.6.0] - 2026-06-12
 
 ### Changed
