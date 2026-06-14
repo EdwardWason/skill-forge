@@ -3,7 +3,7 @@ name: "skill-forge"
 description: "技能熔炉 — 锻造/评估/发布 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度；说 技能发布/发布技能 只做GitHub+ClawHub推送。Do NOT use for editing existing skills, skill security vetting, or general coding tasks."
 ---
 
-# 技能熔炉 v3.6.0
+# 技能熔炉 v4.0
 
 锻造 → 评估 → 发布，三入口全流程交付可自动触发、稳定输出的 Skill。
 
@@ -27,7 +27,10 @@ description: "技能熔炉 — 锻造/评估/发布 Skill。说 技能熔炉 走
 
 **铁律2：一Skill一职** — 不要把多个场景塞进一个Skill，多功能Skill触发混乱、输出不一致。
 
-**铁律3：150行以内** — 超200行AI准确率下降，详细内容移入 `references/` 目录。
+**铁律3：渐进式披露** — SKILL.md ≤200行，只放导航信息（触发/原则/步骤/验证）。详细内容按三级拆分：
+- `references/` — 长文档、风格参考、详细案例
+- `scripts/` — 可执行脚本（确定性操作用脚本比让模型现场生成更稳定）
+- `assets/` — 模板、schema、示例文件、输出样式
 
 ## SKILL.md 格式
 
@@ -35,6 +38,13 @@ description: "技能熔炉 — 锻造/评估/发布 Skill。说 技能熔炉 走
 ---
 name: "<skill-name>"
 description: "<做什么 + 何时触发。核心关键词放前200字符>"
+allowed-tools: "<工具白名单，如：Bash(python:*) WebFetch>"
+model: "<推荐模型，如：claude-opus-4-5>"
+effort: "<思考深度：low/medium/high>"
+metadata:
+  author: "<作者>"
+  version: "<版本>"
+  category: "<分类>"
 ---
 
 # <技能标题>
@@ -50,14 +60,36 @@ description: "<做什么 + 何时触发。核心关键词放前200字符>"
 
 ## 示例
 <一组完整的输入输出，覆盖边界情况>
+
+## 故障排除（可选）
+<常见错误 + 原因 + 解决方案>
 ```
 
 ## 必填字段
 
-| 字段 | 位置 | 说明 |
-|------|------|------|
-| `name` | frontmatter | 唯一标识 |
-| `description` | frontmatter | **关键**：(1)做什么 + (2)何时触发 + (3)Do NOT范围。200字符以内。关键词前置。 |
+| 字段 | 位置 | 必填 | 说明 |
+|------|------|------|------|
+| `name` | frontmatter | **是** | kebab-case，唯一标识 |
+| `description` | frontmatter | **是** | (1)做什么 + (2)何时触发 + (3)Do NOT范围。200字符以内。关键词前置。 |
+| `allowed-tools` | frontmatter | 推荐 | 工具白名单。足够但不过度。 |
+| `model` | frontmatter | 可选 | 推荐模型。简单任务用Haiku省钱，复杂决策用Opus换准确率。 |
+| `effort` | frontmatter | 可选 | 思考深度控制。low省钱省时，high换准确率。 |
+| `metadata` | frontmatter | 推荐 | author / version / category 等。 |
+
+## 目录结构
+
+```
+<skill-name>/
+├── SKILL.md                  # 主入口（≤200行，只放导航信息）
+├── references/               # 长文档、风格参考、详细案例、方法论
+├── scripts/                  # 可执行脚本（检查、导出、批量处理等确定性操作）
+├── assets/                   # 模板、schema、示例文件、输出样式
+├── README.md                 # 给人类看的说明（中英双语）
+├── CHANGELOG.md              # 版本变更日志
+├── LICENSE                   # MIT-0
+└── .claude-plugin/
+    └── plugin.json           # 插件元数据
+```
 
 ---
 
@@ -88,18 +120,23 @@ description: "<做什么 + 何时触发。核心关键词放前200字符>"
 
 **截断机制**: 核心触发关键词必须在前200字符内。尾部在~250字符处截断。
 
-### Step 2: 撰写4模块内容
+### Step 2: 撰写4+1模块内容
 
 **任务**: 锁定边界。声明"做X"和"不做Y"。
 **输出格式**: 固定输出结构。每个字段必须有具体格式，绝不写模糊指令。
 **规则**: 仅3-5条。必须通过**实习生测试**。删除废话规则。
 **示例**: 一组完整的输入输出。一个好示例 > 10条抽象规则。
+**故障排除**（可选）: 常见错误 + 原因 + 解决方案。让Agent遇到问题时能自修复。
 
 ### Step 3: 创建目录和文件
 
+按目录结构创建。判断是否需要 `scripts/` 和 `assets/`：
+- 有确定性操作（检查、导出、批量处理）→ 创建 `scripts/`
+- 有模板、样式、示例文件 → 创建 `assets/`
+
 ### Step 4: 自测验证流水线
 
-**Step 4a: Schema检查** — name+description ✅ | <200字符 ✅ | 关键词前置 ✅ | Do NOT ✅ | 4模块 ✅ | 实习生测试 ✅ | <150行 ✅ | 示例含边界 ✅
+**Step 4a: Schema检查** — name+description ✅ | <200字符 ✅ | 关键词前置 ✅ | Do NOT ✅ | 4模块 ✅ | 实习生测试 ✅ | ≤200行 ✅ | 示例含边界 ✅
 
 **Step 4a+1: 安全红线检查** — 发现以下 RED FLAG 立即拒绝：
 1. curl/wget 向未知URL发送数据
@@ -110,8 +147,18 @@ description: "<做什么 + 何时触发。核心关键词放前200字符>"
 6. 包含混淆代码
 7. 访问浏览器Cookie/会话或凭证文件
 
-**Step 4b: 触发测试** — 3个正向+3个反向假问题。
+**Step 4b: 触发测试** — 准备5条真实用户说法（含口语化、改写、模糊表达），3条不应触发的反向测试。每条标记 should_trigger: true/false。
+
 **Step 4c: Dogfood模拟** — 格式匹配 ✅ | 规则合规 ✅ | 边界情况 ✅
+
+**Step 4d: 量化评分** — 对Dogfood结果按0-10打分：
+- 0-2: 完全没完成任务
+- 3-4: 勉强相关，漏掉关键要求
+- 5-6: 基本可用，有明显问题
+- 7-8: 质量稳定，少量细节可改
+- 9-10: 非常符合预期
+
+**Step 4e: 基线对比** — 同一任务，不用Skill跑一次 vs 用Skill跑一次。如果无Skill已7分，有Skill仍7分，说明Skill无增益。
 
 **最多3次迭代。3次后建议"先发布V1再迭代"。**
 
