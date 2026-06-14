@@ -61,7 +61,7 @@ Compare our Skill against Top 3 peers on these **9 Tencent Skills Manual dimensi
 | 6 | **Output format: concrete** | Every field has fixed format, no vague instructions? |
 | 7 | **Rules: Intern Test** | Every rule is directly actionable, no useless defaults? |
 | 8 | **Example: edge case coverage** | Example covers boundary situations? |
-| 9 | **Size: under 150 lines** | Lean and focused, no bloat? |
+| 9 | **Size: under 200 lines** | Lean and focused, no bloat? Progressive disclosure (references/scripts/assets)? |
 
 Fill in the comparison table:
 
@@ -75,7 +75,7 @@ Fill in the comparison table:
 | 6. Output concreteness | | | | | |
 | 7. Intern Test rules | | | | | |
 | 8. Edge case coverage | | | | | |
-| 9. Size control | | | | | |
+| 9. Size control (≤200 lines + progressive disclosure) | | | | | |
 
 ---
 
