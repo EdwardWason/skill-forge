@@ -1,11 +1,16 @@
 ---
 name: "skill-forge"
-description: "技能熔炉 — 锻造/评估/发布 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度；说 技能发布/发布技能 只做GitHub+ClawHub推送。Do NOT use for editing existing skills, skill security vetting, or general coding tasks."
+slug: "skill-forge-ai"
+displayName: "Skill Forge"
+description: "技能熔炉 — 锻造/评估 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度。发布环节请用 skill-publisher。Do NOT use for editing existing skills, skill security vetting, general coding tasks, or skill publishing (use skill-publisher)."
+version: "4.3.0"
+license: "MIT"
+allowed-tools: "Bash(mkdir:*), Bash(curl:*), Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, AskUserQuestion"
 ---
 
-# 技能熔炉 v4.0
+# 技能熔炉 v4.3
 
-锻造 → 评估 → 发布，三入口全流程交付可自动触发、稳定输出的 Skill。
+锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。发布环节由独立的 skill-publisher 技能承接。
 
 ## 入口检测
 
@@ -13,11 +18,12 @@ description: "技能熔炉 — 锻造/评估/发布 Skill。说 技能熔炉 走
 
 | 触发词 | 入口 | 执行流程 |
 |--------|------|---------|
-| 技能熔炉 | Phase 0 | Phase 0→1→2→3 全流程 |
+| 技能熔炉 | Phase 0 | Phase 0→1→2 全流程 |
 | 技能评估 / skill评估 / 评估技能 | Phase 2 | 只做 SkillHub 同类比对 + 腾讯9维度 |
-| 技能发布 / 发布技能 | Phase 3 | 只做 GitHub + ClawHub 推送 |
 
 **检测到触发词后，立即跳转到对应 Phase，不执行前面的阶段。**
+
+**发布不在本技能范围内**：当用户说"技能发布/发布技能/更新技能/迭代技能"时，应触发 skill-publisher，不是本技能。
 
 ## 三条铁律
 
@@ -138,7 +144,9 @@ metadata:
 
 **Step 4a: Schema检查** — name+description ✅ | <200字符 ✅ | 关键词前置 ✅ | Do NOT ✅ | 4模块 ✅ | 实习生测试 ✅ | ≤200行 ✅ | 示例含边界 ✅
 
-**Step 4a+1: 安全红线检查** — 发现以下 RED FLAG 立即拒绝：
+**Step 4a+1: 信任检查（T维度）** — 三类扫描，任何 RED FLAG 立即拒绝：
+
+**安全红线**（原7条，保留）：
 1. curl/wget 向未知URL发送数据
 2. 无正当理由请求凭证/Token/API密钥
 3. 读取 ~/.ssh、~/.aws、~/.config、MEMORY.md、USER.md、IDENTITY.md
@@ -147,9 +155,31 @@ metadata:
 6. 包含混淆代码
 7. 访问浏览器Cookie/会话或凭证文件
 
+**最小权限校验**（TRACE T维度新增）：
+- 检查 frontmatter `allowed-tools`，与任务无关的工具权限必须删除
+- 判断标准：如果删除该工具权限，Skill 仍能完成任务 → 该权限多余
+- 例：周报生成Skill请求文件系统写入权限 → RED FLAG
+
+**国内可用性校验**（TRACE T维度新增）：
+- Skill 依赖的外部 API/服务必须在国内网络环境下可访问
+- 完全依赖海外 API 且无国内替代方案 → RED FLAG
+- 中文交互完整性：输入输出必须支持中文，不能仅英文
+
 **Step 4b: 触发测试** — 准备5条真实用户说法（含口语化、改写、模糊表达），3条不应触发的反向测试。每条标记 should_trigger: true/false。
 
-**Step 4c: Dogfood模拟** — 格式匹配 ✅ | 规则合规 ✅ | 边界情况 ✅
+**Step 4c: Dogfood压力测试（R维度）** — 三类输入 × 三项检查：
+
+**三类输入测试**：
+- 常见输入：示例中的标准输入，验证基本流程
+- 边界输入：空输入、超长输入、格式异常输入，验证健壮性
+- 复杂输入：真实世界的脏数据/模糊表述，验证容错性
+
+**三项检查**（每类输入都要过）：
+- 格式匹配：输出是否遵循固定格式 ✅/❌
+- 规则合规：输出是否违反规则 ✅/❌
+- 异常处理反馈（TRACE R维度新增）：遇到无法完成的情况时，是否清楚说明原因并给出后续建议，而不是返回空结果或乱码 ✅/❌
+  - ✅ 好：PDF解析遇扫描件 → "该文件为扫描图片，无法提取文本，建议先进行OCR处理"
+  - ❌ 差：同样场景 → 无报错，直接返回空结果
 
 **Step 4d: 量化评分** — 对Dogfood结果按0-10打分：
 - 0-2: 完全没完成任务
@@ -158,7 +188,20 @@ metadata:
 - 7-8: 质量稳定，少量细节可改
 - 9-10: 非常符合预期
 
-**Step 4e: 基线对比** — 同一任务，不用Skill跑一次 vs 用Skill跑一次。如果无Skill已7分，有Skill仍7分，说明Skill无增益。
+**Step 4e: 有效性验证（E维度）** — 三层验证：
+
+**基线对比**（保留）：同一任务，不用Skill跑一次 vs 用Skill跑一次。如果无Skill已7分，有Skill仍7分，说明Skill无增益。
+
+**可直接可用性**（TRACE E维度新增）：输出是否需要用户大量手动修正才能用？
+- ✅ 好：公众号润色Skill输出后，用户少量检查即可直接发布
+- ❌ 差：输出只改了语气，用户仍需重新梳理结构、补案例、删空话
+- 判断标准：修正量 < 20% → 通过；修正量 > 50% → 不通过
+
+**增量价值**（TRACE E维度新增）：Skill 是否提供了用户自己做不到的能力？
+- 信息整合：跨多个来源整合信息，用户手动难以完成
+- 判断建议：基于数据分析给出专业判断，不是简单格式转换
+- 质量提升：输出质量明显高于无AI辅助的人工产出
+- 如果 Skill 只是简单格式转换或关键词替换 → 增量价值不足，建议重新设计
 
 **最多3次迭代。3次后建议"先发布V1再迭代"。**
 
@@ -188,52 +231,77 @@ metadata:
 
 ---
 
-## Phase 3: 发布到 GitHub + ClawHub
+## 发布交接提醒
 
-**【入口：技能发布 / 发布技能】** — 读取 [`references/publishing-guide.md`](references/publishing-guide.md) 获取完整发布流程。
+**触发条件**（满足以下任一）：
+1. 【技能熔炉入口】Step 4 验证全通过（≥7分）+ Step 5d 用户选择"保持原样"或"采纳修复且修复完成"
+2. 【技能评估入口】Step 5d 用户选择"保持原样"或"采纳修复且修复完成"
 
-### Step 6: 仓库结构生成
+**不触发**：
+- Step 5d 用户选择"直接安装已有"（用户不需要发布自己的 Skill）
+- Step 4 验证未通过（评分 <7）
+- Step 5c 发现有 Critical 盲区未修复
 
-生成标准目录结构：SKILL.md / README.md(中英双语) / CHANGELOG.md / LICENSE(MIT-0) / .gitignore / .claude-plugin/plugin.json。
+**触发时提示**：
 
-确认作者名、GitHub owner、版本号、ClawHub slug。
+> Skill 已通过锻造与评估。如需发布到 GitHub + ClawHub + SkillHub，请说"技能发布"或"发布技能"调用 **skill-publisher** 技能，它负责：前置条件校验 → 仓库结构生成 → 安全审查 → 版本号查重 → 三平台推送 → 发布后验证。
 
-### Step 7: 发布前安全审查
-
-三类扫描，全部 PASS 才能继续：
-
-| 扫描项 | Grep 正则 | PASS 标准 |
-|--------|----------|----------|
-| 凭证泄露 | `token\|api_key\|secret\|password\|ghp_\|clh_\|sk-\|AKIA` | 仅概念提及 |
-| 本地路径 | `C:\\\|D:\\\|Administrator\|\.trae-cn` | 零匹配 |
-| 危险命令 | `curl\|wget\|eval\|exec\|base64\|sudo\|\.ssh` | 仅安全文档提及 |
-
-分发物三维判定 + ClawHub slug 检查（`clawhub inspect <slug>`）。
-
-### Step 8: GitHub 推送
-
-优先 git push，失败时降级为 GitHub REST API 逐文件上传。创建 Release 承载详细变更说明。
-
-### Step 9: ClawHub 发布
-
-```bash
-clawhub publish <path> --slug <slug> --version <version> --tags "<ASCII-only>" --changelog "<text>"
-```
-
-**注意**：--tags 只能用 ASCII 字符（中文会报错）。--version 必填。
-
-### Step 10: 发布后验证
-
-1. 检查 GitHub 仓库文件列表，确认无多余文件
-2. `clawhub inspect <slug>` 确认发布成功
-3. 汇报发布结果
+**不要在本技能内执行任何发布操作。** 发布是独立技能 skill-publisher 的职责，本技能仅负责锻造与评估。
 
 ---
+
+## 示例
+
+### 示例1：常见输入（信息充足，直接创建）
+
+**用户输入**："帮我做一个技能，自动从会议纪要中提取行动项、决策和待办问题，输出固定格式的表格。当用户发来会议纪要或转写稿时触发。不做会议录音转写，不做任务跟踪。"
+
+**要素检查**：5项齐备（单一场景✅ / 触发条件✅ / 输出格式✅ / 范围边界✅ / 硬约束✅）→ 跳过访谈，直接 Phase 1
+
+**Phase 1 输出**：
+```yaml
+name: "meeting-action-extractor"
+description: "Extracts action items, decisions, and pending questions from meeting transcripts. Invoke when user sends meeting notes, transcript, or asks to extract action items. Do NOT use for audio transcription, task tracking, or calendar scheduling."
+```
+
+任务/输出格式/规则/示例 4模块按规范生成，Step 4 验证全通过（评分8分）。
+
+**Phase 2 评估**：SkillHub 搜索 Top 3 同类，9维度比对发现"示例未覆盖中文会议纪要"盲区 → 采纳修复 → 重新验证通过。
+
+**发布交接提醒触发**：评估完成，用户选择"保持原样" → 提示调用 skill-publisher。
+
+### 示例2：边界输入（信息不足，进入访谈）
+
+**用户输入**："做个技能帮我整理笔记"
+
+**要素检查**：2项齐备（单一场景✅ / 触发条件❌ / 输出格式❌ / 范围边界❌ / 硬约束❌）→ 进入自适应访谈
+
+**Round 1**：
+- Q1："你想让这个 Skill 帮你整理什么类型的笔记？" → 3选项：课堂笔记 / 读书笔记 / 会议笔记 + Other
+- 用户选"会议笔记" → Why×1："为什么需要整理？上一次整理会议笔记时最头疼什么？"
+
+**Round 2**：
+- Q3："想想最近一次整理会议笔记的经过，一步步告诉我"（行为追问B1）
+- 用户描述后 → 要素更新为4项齐备 → 进入 Phase 1
+
+### 示例3：异常输入（需求矛盾）
+
+**用户输入**："做个技能既能写公众号文章又能生成PPT还能剪视频"
+
+**要素检查**：违反铁律2（一Skill一职）→ 标记矛盾
+
+**处理**：引用用户原话，让用户选择优先级
+> 你提到三个功能：写文章、生成PPT、剪视频。一个Skill只做一个场景（铁律2），请选择你最需要的一个：
+> A. 公众号文章写作
+> B. PPT生成
+> C. 视频剪辑
+> D. 其他
+
+用户选A → 聚焦到公众号文章写作Skill，重新进入要素检查。
 
 ## References
 
 - **[`references/interview-flow.md`](references/interview-flow.md)** — Phase 0 访谈方法论。B1-B6 规则、轮次模板、递归搜索、收敛检查。
 - **[`references/interview-methods.md`](references/interview-methods.md)** — 访谈方法论深度参考。行为追问、偏误检测、选项法设计。
 - **[`references/benchmarking-guide.md`](references/benchmarking-guide.md)** — Phase 2 比对方法论。SkillHub API、质量排序公式、腾讯9维度模板。
-- **[`references/publishing-guide.md`](references/publishing-guide.md)** — Phase 3 发布流程。仓库结构模板、安全审查、GitHub API降级、ClawHub CLI、PowerShell兼容。
 - **[`references/meeting-action-extractor-example.md`](references/meeting-action-extractor-example.md)** — 完整Skill示例。

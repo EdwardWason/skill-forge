@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.3.0] - 2026-07-11
+
+### Added
+- **allowed-tools**: frontmatter 新增工具白名单声明（Bash(mkdir/curl) + Read/Write/Edit/Glob/Grep + WebFetch/WebSearch + AskUserQuestion），符合 TRACE T维度最小权限原则
+- **示例模块**: 新增3个完整示例，覆盖常见输入（信息充足直接创建）+ 边界输入（信息不足进入访谈）+ 异常输入（需求矛盾处理），符合4模块规范和 TRACE R维度异常处理反馈要求
+- **条件触发发布提醒**: 发布交接提醒从无条件触发改为条件触发，明确触发条件（验证通过≥7分 + 用户选择保持原样/修复完成）和不触发条件（直接安装已有/验证未通过/Critical盲区未修复）
+
+### Changed
+- 版本从 4.2.0 升级到 4.3.0
+- 自检通过：Step 4 验证流水线自检全通过（T/R/A/C/E 五维度均达标）
+
+## [4.2.0] - 2026-07-11
+
+### Added
+- **TRACE 评测体系整合**（方案A轻量整合）：将 SkillHub TRACE 五维度（Trust/Reliability/Adaptability/Convention/Effectiveness）的核心检查点嵌入 Step 4 验证流水线
+- **Step 4a+1 信任检查（T维度）**：在原7条安全红线基础上，新增最小权限校验（检查 allowed-tools 是否有多余权限）和国内可用性校验（外部 API 必须国内可访问 + 中文交互完整性）
+- **Step 4c Dogfood压力测试（R维度）**：从单一示例输入升级为三类输入（常见/边界/复杂）× 三项检查（格式匹配/规则合规/异常处理反馈），新增"异常处理反馈"检查——Skill 遇到无法完成的情况时必须清楚说明原因并给出建议，而不是返回空结果或乱码
+- **Step 4e 有效性验证（E维度）**：在基线对比基础上，新增"可直接可用性"（修正量<20%为通过）和"增量价值"（信息整合/判断建议/质量提升）两层验证
+
+### Changed
+- Step 4a+1 标题从"安全红线检查"改为"信任检查（T维度）"
+- Step 4c 标题从"Dogfood模拟"改为"Dogfood压力测试（R维度）"
+- Step 4e 标题从"基线对比"改为"有效性验证（E维度）"
+
+## [4.1.0] - 2026-07-11
+
+### Changed
+- 标题从"技能熔炉 v4.0"更新为"v4.1"
+- Description 移除"发布"触发词，改为引导用户调用 skill-publisher
+- 入口检测表移除"技能发布/发布技能 → Phase 3"行，只保留"技能熔炉"和"技能评估"两个入口
+- 副标题从"锻造 → 评估 → 发布，三入口"改为"锻造 → 评估，两入口"
+
+### Removed
+- **Phase 3: 发布到 GitHub + ClawHub** 整个章节（Step 6-10）— 发布流程已由独立的 skill-publisher 技能承接
+- `references/publishing-guide.md` — 该文件内容已迁移到 skill-publisher 的 references 目录
+
+### Added
+- **发布交接提醒**：Phase 2 评估完成后，主动提示用户可调用 skill-publisher 进行发布，明确声明本技能不执行任何发布操作
+- 入口检测表下方新增"发布不在本技能范围内"说明，指向 skill-publisher
+
 ## [4.0.0] - 2026-06-12
 
 ### Added

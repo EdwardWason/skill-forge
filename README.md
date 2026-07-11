@@ -1,18 +1,19 @@
-# 技能熔炉 v4.0
+# 技能熔炉 v4.3
 
-> 锻造 → 评估 → 发布，三入口全流程交付可自动触发、稳定输出的 Skill
+> 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。发布环节由独立的 skill-publisher 承接。v4.3 整合 TRACE 评测体系 + 条件触发发布提醒。
 
-[![版本](https://img.shields.io/badge/version-4.0.0-blue)](https://github.com/EdwardWason/skill-forge)
+[![版本](https://img.shields.io/badge/version-4.3.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![许可证](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
-## 三入口触发
+## 两入口触发
 
 | 触发词 | 场景 | 执行流程 |
 |--------|------|---------|
-| **技能熔炉** | 从零创建到发布全流程 | Phase 0→1→2→3 |
+| **技能熔炉** | 从零创建到评估全流程 | Phase 0→1→2 |
 | **技能评估** / skill评估 / 评估技能 | 已有Skill，评估质量 | Phase 2（SkillHub比对+腾讯9维度） |
-| **技能发布** / 发布技能 | 已有Skill，推送发布 | Phase 3（GitHub+ClawHub） |
+
+> **发布不在本技能范围内**：当用户说"技能发布/发布技能/更新技能/迭代技能"时，应触发独立的 **skill-publisher** 技能。
 
 ## 功能
 
@@ -23,6 +24,7 @@
 - **SkillHub同类比对**：搜索Top3同类Skill，腾讯9维度合规比对，差异化分析
 - **渐进式披露**：SKILL.md≤200行只放导航，详细内容拆入 references/ + scripts/ + assets/
 - **Frontmatter扩展**：allowed-tools / model / effort / metadata，精准控制工具权限和思考深度
+- **发布交接提醒**：评估完成后主动提示用户调用 skill-publisher 进行发布
 
 ## 快速开始
 
@@ -39,9 +41,8 @@ cp -r skill-forge ~/.trae/skills/
 
 在 TRAE SOLO 中，当你说以下内容时，Skill Forge 会自动触发：
 
-- "技能熔炉" — 全流程（创建→评估→发布）
+- "技能熔炉" — 全流程（创建→评估）
 - "技能评估" — 只做同类比对+腾讯9维度
-- "技能发布" — 只做GitHub+ClawHub推送
 
 ### 两种模式
 
@@ -54,8 +55,9 @@ cp -r skill-forge ~/.trae/skills/
 Phase 0: 意图识别 → 要素检查(5项) → 自适应访谈(2-5轮)
 Phase 1: 创建 → Description先行 → 4+1模块内容 → 自测验证(含安全红线+量化评分+基线对比)
 Phase 2: SkillHub同类比对 → 搜索排名 → 腾讯9维度比对 → 差异化分析
-Phase 3: 发布到 GitHub + ClawHub → 安全审查 → 推送 → 验证
 ```
+
+评估完成后，本技能会主动提示用户调用 skill-publisher 进行发布。
 
 ## 文件结构
 
@@ -66,7 +68,6 @@ skill-forge/
 │   ├── interview-flow.md                 # 访谈流程详细参考
 │   ├── interview-methods.md              # 访谈方法论深度参考
 │   ├── benchmarking-guide.md             # SkillHub比对指南
-│   ├── publishing-guide.md               # 发布流程详细参考
 │   └── meeting-action-extractor-example.md  # 完整Skill示例
 ├── README.md                             # 本文件（中英双语）
 ├── CHANGELOG.md                          # 版本变更日志
@@ -130,8 +131,20 @@ skill-forge/
 | [访谈流程参考](references/interview-flow.md) | B1-B6规则、轮次模板、递归搜索模式 |
 | [访谈方法论](references/interview-methods.md) | 行为追问、偏误检测、选项法设计 |
 | [比对指南](references/benchmarking-guide.md) | SkillHub API用法、质量排序公式、9维度比对模板 |
-| [发布指南](references/publishing-guide.md) | 仓库结构模板、安全审查、GitHub API降级、ClawHub CLI |
 | [完整示例](references/meeting-action-extractor-example.md) | 会议行动项提取器Skill示例 |
+
+## 与 skill-publisher 的关系
+
+本技能专注于 Skill 的**锻造与评估**（Phase 0-2）。当评估完成、用户准备发布时，本技能会主动提示调用 **skill-publisher** 技能完成发布流程：
+
+- 仓库结构生成
+- 安全审查（含扩展凭证模式）
+- 版本号查重
+- GitHub 推送
+- ClawHub 发布
+- 发布后验证
+
+说"技能发布"或"发布技能"即可触发 skill-publisher。
 
 ## License
 
@@ -139,21 +152,22 @@ MIT-0 © 2026 AI花生
 
 ---
 
-# Skill Forge (技能熔炉) v4.0
+# Skill Forge (技能熔炉) v4.3
 
-> Forge → Evaluate → Publish, three-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output.
+> Forge → Evaluate, two-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output. Publishing is handled by the standalone skill-publisher. v4.3 integrates TRACE evaluation framework + conditional publish reminder.
 
-[![Version](https://img.shields.io/badge/version-4.0.0-blue)](https://github.com/EdwardWason/skill-forge)
+[![Version](https://img.shields.io/badge/version-4.3.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![License](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
-## Three-Entry Triggers
+## Two-Entry Triggers
 
 | Trigger Words | Scenario | Pipeline |
 |---------------|----------|----------|
-| **技能熔炉** | Create from scratch to publish | Phase 0→1→2→3 |
+| **技能熔炉** | Create from scratch to evaluation | Phase 0→1→2 |
 | **技能评估** / skill评估 / 评估技能 | Evaluate existing Skill | Phase 2 (SkillHub benchmarking + Tencent 9-dimension) |
-| **技能发布** / 发布技能 | Publish existing Skill | Phase 3 (GitHub + ClawHub) |
+
+> **Publishing is out of scope**: When users say "技能发布/发布技能/更新技能/迭代技能", the standalone **skill-publisher** skill should be triggered instead.
 
 ## Features
 
@@ -164,6 +178,7 @@ MIT-0 © 2026 AI花生
 - **SkillHub Peer Benchmarking**: Search Top 3 peers, 9-dimension Tencent Manual compliance comparison, differentiation analysis
 - **Progressive Disclosure**: SKILL.md ≤200 lines (navigation only), details split into references/ + scripts/ + assets/
 - **Extended Frontmatter**: allowed-tools / model / effort / metadata for precise tool permission and thinking depth control
+- **Publishing Handoff Reminder**: After evaluation, prompts user to invoke skill-publisher for publishing
 
 ## Quick Start
 
@@ -179,9 +194,8 @@ cp -r skill-forge ~/.trae/skills/
 ## Usage
 
 Skill Forge auto-triggers when you say:
-- "技能熔炉" — Full pipeline (create → evaluate → publish)
+- "技能熔炉" — Full pipeline (create → evaluate)
 - "技能评估" — Evaluation only (SkillHub benchmarking + Tencent 9-dimension)
-- "技能发布" — Publishing only (GitHub + ClawHub)
 
 ### Two Modes
 
@@ -194,8 +208,9 @@ Skill Forge auto-triggers when you say:
 Phase 0: Intent recognition → Element check (5 items) → Adaptive interview (2-5 rounds)
 Phase 1: Creation → Description-first → 4+1 module content → 6-layer validation (with security + scoring + baseline)
 Phase 2: SkillHub peer benchmarking → Search & rank → Tencent 9-dimension comparison → Gap analysis
-Phase 3: Publish to GitHub + ClawHub → Security audit → Push → Verify
 ```
+
+After evaluation completes, this skill prompts the user to invoke skill-publisher for publishing.
 
 ## File Structure
 
@@ -206,7 +221,6 @@ skill-forge/
 │   ├── interview-flow.md                 # Interview flow reference
 │   ├── interview-methods.md              # Interview methodology
 │   ├── benchmarking-guide.md             # SkillHub benchmarking guide
-│   ├── publishing-guide.md               # Publishing guide
 │   └── meeting-action-extractor-example.md  # Full Skill example
 ├── README.md                             # This file (bilingual)
 ├── CHANGELOG.md                          # Version changelog
@@ -270,8 +284,20 @@ Any created Skill must pass security check. Any red flag below = reject:
 | [Interview Flow](references/interview-flow.md) | B1-B6 rules, round templates, recursive search pattern |
 | [Interview Methods](references/interview-methods.md) | Behavioral probing, bias detection, option design |
 | [Benchmarking Guide](references/benchmarking-guide.md) | SkillHub API usage, quality ranking formula, 9-dimension template |
-| [Publishing Guide](references/publishing-guide.md) | Repo structure template, security audit, GitHub API fallback, ClawHub CLI |
 | [Full Example](references/meeting-action-extractor-example.md) | Meeting action extractor Skill example |
+
+## Relationship with skill-publisher
+
+This skill focuses on **forging and evaluating** Skills (Phase 0-2). When evaluation is complete and the user is ready to publish, this skill prompts the user to invoke **skill-publisher** to handle the publishing pipeline:
+
+- Repository structure generation
+- Security audit (with extended credential patterns)
+- Version deduplication check
+- GitHub push
+- ClawHub publishing
+- Post-publish verification
+
+Say "技能发布" or "发布技能" to trigger skill-publisher.
 
 ## License
 
