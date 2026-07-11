@@ -1,7 +1,7 @@
 {
   "name": "skill-forge",
   "description": "技能熔炉 — 锻造/评估 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做比对。发布环节请用 skill-publisher。v4.3整合TRACE评测体系+条件触发发布提醒。",
-  "version": "4.3.0",
+  "version": "4.3.1",
   "author": {
     "name": "AI花生"
   },

@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [4.3.1] - 2026-07-11
+
+### Added
+- **SkillHub frontmatter 字段**: 新增 slug/displayName/version/license 字段，支持 SkillHub 平台发布（与 ClawHub 的 name/description 共存于同一 frontmatter）
+
+### Changed
+- 版本从 4.3.0 升级到 4.3.1
+
 ## [4.3.0] - 2026-07-11
 
 ### Added

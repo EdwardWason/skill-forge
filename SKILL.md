@@ -3,7 +3,7 @@ name: "skill-forge"
 slug: "skill-forge-ai"
 displayName: "Skill Forge"
 description: "技能熔炉 — 锻造/评估 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度。发布环节请用 skill-publisher。Do NOT use for editing existing skills, skill security vetting, general coding tasks, or skill publishing (use skill-publisher)."
-version: "4.3.0"
+version: "4.3.1"
 license: "MIT"
 allowed-tools: "Bash(mkdir:*), Bash(curl:*), Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, AskUserQuestion"
 ---
