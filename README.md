@@ -1,8 +1,8 @@
-# 技能熔炉 v4.3
+# 技能熔炉 v5.0
 
-> 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。发布环节由独立的 skill-publisher 承接。v4.3 整合 TRACE 评测体系 + 条件触发发布提醒。
+> 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v5.0 新增前置闸门 + 五类入口路由 + 一次一问 + 分层验证 + 最后一公里。
 
-[![版本](https://img.shields.io/badge/version-4.3.0-blue)](https://github.com/EdwardWason/skill-forge)
+[![版本](https://img.shields.io/badge/version-5.0.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![许可证](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
@@ -17,14 +17,20 @@
 
 ## 功能
 
+- **前置闸门**：动手前判断"值不值得做/有没有现成的/该不该拆"，该劝退就劝退
+- **五类入口路由**：从零想法/从对话提取/从现成材料/从草稿完善/改进已有skill
+- **水平自适应**：从用户措辞自动判断水平，调整用词深度，全程不问"你几级"
+- **一次一问**：每轮只问1个问题+2-3个选项，不再一次甩3个问题
+- **确认门**：四要素问齐后回述一页小结，"这样对吗？"获批才动手写
 - **自适应访谈**：2-5轮渐进式访谈，行为追问+偏误检测+选项法，精准锁定需求
 - **三条铁律**：Description先行 / 一Skill一职 / 渐进式披露（≤200行+三级拆分），确保自动触发可靠
 - **4+1模块结构**：任务/输出格式/规则/示例/故障排除(可选)，符合腾讯 Skills 手册规范
-- **自测验证流水线**：Schema检查 → 安全红线(7条) → 触发测试(5+3) → Dogfood模拟 → 量化评分 → 基线对比
+- **分层验证**：默认轻量"跑给你看"，老手/严谨场景才上重型量化评测
 - **SkillHub同类比对**：搜索Top3同类Skill，腾讯9维度合规比对，差异化分析
 - **渐进式披露**：SKILL.md≤200行只放导航，详细内容拆入 references/ + scripts/ + assets/
 - **Frontmatter扩展**：allowed-tools / model / effort / metadata，精准控制工具权限和思考深度
-- **发布交接提醒**：评估完成后主动提示用户调用 skill-publisher 进行发布
+- **触发描述优化迭代**：初版description写完后用5条真实用户说法测试，不准就迭代
+- **最后一公里**：告诉用户skill放哪、怎么确认装上、怎么自测触发、怎么打包分发
 
 ## 快速开始
 
@@ -41,8 +47,9 @@ cp -r skill-forge ~/.trae/skills/
 
 在 TRAE SOLO 中，当你说以下内容时，Skill Forge 会自动触发：
 
-- "技能熔炉" — 全流程（创建→评估）
+- "技能熔炉" — 全流程（前置闸门→创建→评估→发布+最后一公里）
 - "技能评估" — 只做同类比对+腾讯9维度
+- "技能发布" — 只做GitHub+ClawHub推送+安装自测
 
 ### 两种模式
 
@@ -52,9 +59,11 @@ cp -r skill-forge ~/.trae/skills/
 ### 创建流程
 
 ```
-Phase 0: 意图识别 → 要素检查(5项) → 自适应访谈(2-5轮)
-Phase 1: 创建 → Description先行 → 4+1模块内容 → 自测验证(含安全红线+量化评分+基线对比)
+Phase -1: 前置闸门 → 值不值得做 → 有没有现成 → 该不该拆
+Phase 0: 入口路由 → 五类入口 → 自适应访谈(一次一问) → 确认门
+Phase 1: 创建 → Description先行+触发优化 → 4+1模块 → 分层验证
 Phase 2: SkillHub同类比对 → 搜索排名 → 腾讯9维度比对 → 差异化分析
+Phase 3: 发布+最后一公里 → 安全审查 → 推送 → 安装自测
 ```
 
 评估完成后，本技能会主动提示用户调用 skill-publisher 进行发布。
@@ -68,6 +77,7 @@ skill-forge/
 │   ├── interview-flow.md                 # 访谈流程详细参考
 │   ├── interview-methods.md              # 访谈方法论深度参考
 │   ├── benchmarking-guide.md             # SkillHub比对指南
+│   ├── pre-gate-and-routing.md           # 前置闸门+五类入口路由+改进诊断
 │   └── meeting-action-extractor-example.md  # 完整Skill示例
 ├── README.md                             # 本文件（中英双语）
 ├── CHANGELOG.md                          # 版本变更日志
@@ -113,16 +123,30 @@ skill-forge/
 6. 包含混淆代码（压缩/编码/混淆）
 7. 访问浏览器Cookie/会话或凭证文件
 
-### 评测体系（6层）
+### 前置闸门
 
-| 层级 | 验证内容 | 方法 |
-|------|---------|------|
-| 1 | 能不能跑 | 功能测试 |
-| 2 | 能不能正确触发 | 5条正向+3条反向真实用户说法 |
-| 3 | Dogfood模拟 | 格式匹配+规则合规+边界情况 |
-| 4 | 量化评分 | 0-10打分，主要用例≥5分 |
-| 5 | 基线对比 | 有Skill vs 无Skill，验证增益 |
-| 6 | 迭代修复 | 根据失败点修改→再跑评测 |
+| 检查项 | 通过条件 | 不通过处理 |
+|--------|---------|-----------|
+| 值不值得做 | 反复使用 + 自动化价值 | 劝退（一次性任务不需要Skill） |
+| 有没有现成 | SkillHub搜索无完美匹配 | 引导使用现成Skill |
+| 该不该拆 | 单一核心场景 | 拆分为多个Skill |
+
+### 五类入口路由
+
+| 入口 | 场景 | 起点 |
+|------|------|------|
+| R1 从零想法 | 用户只有模糊想法 | 访谈锁定需求 |
+| R2 从对话提取 | 已有对话上下文 | 提取要素+补全 |
+| R3 从现成材料 | 用户有文档/规范 | 材料转Skill结构 |
+| R4 从草稿完善 | 用户有半成品 | 诊断+完善 |
+| R5 改进已有skill | 现有Skill有问题 | 症状诊断+修复 |
+
+### 分层验证
+
+| 层级 | 适用场景 | 验证内容 |
+|------|---------|---------|
+| 轻量（默认） | 新手 / 快速验证 | "跑给你看"——直接执行主要用例，确认能跑+能触发 |
+| 重型（可选） | 老手 / 严谨场景 | 完整6层：Schema → 安全(7条) → 触发(5+3) → Dogfood → 量化评分 → 基线对比 |
 
 ## 文档
 
@@ -131,6 +155,7 @@ skill-forge/
 | [访谈流程参考](references/interview-flow.md) | B1-B6规则、轮次模板、递归搜索模式 |
 | [访谈方法论](references/interview-methods.md) | 行为追问、偏误检测、选项法设计 |
 | [比对指南](references/benchmarking-guide.md) | SkillHub API用法、质量排序公式、9维度比对模板 |
+| [前置闸门+入口路由](references/pre-gate-and-routing.md) | 前置闸门逻辑、五类入口路由、Skill改进诊断脚本 |
 | [完整示例](references/meeting-action-extractor-example.md) | 会议行动项提取器Skill示例 |
 
 ## 与 skill-publisher 的关系
@@ -152,11 +177,11 @@ MIT-0 © 2026 AI花生
 
 ---
 
-# Skill Forge (技能熔炉) v4.3
+# Skill Forge (技能熔炉) v5.0
 
-> Forge → Evaluate, two-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output. Publishing is handled by the standalone skill-publisher. v4.3 integrates TRACE evaluation framework + conditional publish reminder.
+> Forge → Evaluate, two-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output. v5.0 adds Pre-Gate + Five Entry Routes + One-Question-at-a-Time + Layered Validation + Last Mile.
 
-[![Version](https://img.shields.io/badge/version-4.3.0-blue)](https://github.com/EdwardWason/skill-forge)
+[![Version](https://img.shields.io/badge/version-5.0.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![License](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
@@ -171,14 +196,20 @@ MIT-0 © 2026 AI花生
 
 ## Features
 
+- **Pre-Gate**: Judges "worth doing? / already exists? / too big?" before investing time. Dissuades one-time tasks.
+- **Five Entry Routes**: R1 from scratch / R2 from conversation / R3 from existing material / R4 from draft / R5 improve existing skill
+- **Level Adaptation**: Auto-detects user level from language. Never asks "你几级". Adapts terminology depth in real-time.
+- **One Question at a Time**: Each interview round asks only 1 question + 2-3 options. No more 3-questions-at-once.
+- **Confirmation Gate**: After 4 elements gathered, present one-page summary. "理解没对齐，绝不动手写。"
 - **Adaptive Interview**: 2-5 round progressive interview with behavioral probing, bias detection, and option-first design
 - **Three Iron Rules**: Description-first / One-Skill-One-Job / Progressive Disclosure (≤200 lines + 3-tier split), ensuring reliable auto-triggering
 - **4+1 Module Structure**: Task / Output Format / Rules / Example / Troubleshooting (optional), compliant with Tencent Skills Manual
-- **6-Layer Validation Pipeline**: Schema → Security (7 items) → Trigger test (5+3) → Dogfood → Quantitative scoring → Baseline comparison
+- **Layered Validation**: Default lightweight "run it for you" for beginners; optional heavy 6-layer validation for power users
 - **SkillHub Peer Benchmarking**: Search Top 3 peers, 9-dimension Tencent Manual compliance comparison, differentiation analysis
 - **Progressive Disclosure**: SKILL.md ≤200 lines (navigation only), details split into references/ + scripts/ + assets/
 - **Extended Frontmatter**: allowed-tools / model / effort / metadata for precise tool permission and thinking depth control
-- **Publishing Handoff Reminder**: After evaluation, prompts user to invoke skill-publisher for publishing
+- **Description Optimization Iteration**: After writing initial description, test with 5 real user phrases. Auto-iterate if trigger accuracy is low
+- **Last Mile**: Tells user where the skill is installed, how to verify, how to self-test trigger, how to package and distribute
 
 ## Quick Start
 
@@ -194,8 +225,9 @@ cp -r skill-forge ~/.trae/skills/
 ## Usage
 
 Skill Forge auto-triggers when you say:
-- "技能熔炉" — Full pipeline (create → evaluate)
+- "技能熔炉" — Full pipeline (pre-gate → create → evaluate → publish + last mile)
 - "技能评估" — Evaluation only (SkillHub benchmarking + Tencent 9-dimension)
+- "技能发布" — Publish only (GitHub + ClawHub push + install self-test)
 
 ### Two Modes
 
@@ -205,9 +237,11 @@ Skill Forge auto-triggers when you say:
 ### Pipeline
 
 ```
-Phase 0: Intent recognition → Element check (5 items) → Adaptive interview (2-5 rounds)
-Phase 1: Creation → Description-first → 4+1 module content → 6-layer validation (with security + scoring + baseline)
+Phase -1: Pre-Gate → Worth doing? → Already exists? → Should split?
+Phase 0: Entry routing → Five entry routes → Adaptive interview (one question at a time) → Confirmation gate
+Phase 1: Creation → Description-first + trigger optimization → 4+1 modules → Layered validation
 Phase 2: SkillHub peer benchmarking → Search & rank → Tencent 9-dimension comparison → Gap analysis
+Phase 3: Publish + last mile → Security audit → Push → Install self-test
 ```
 
 After evaluation completes, this skill prompts the user to invoke skill-publisher for publishing.
@@ -221,6 +255,7 @@ skill-forge/
 │   ├── interview-flow.md                 # Interview flow reference
 │   ├── interview-methods.md              # Interview methodology
 │   ├── benchmarking-guide.md             # SkillHub benchmarking guide
+│   ├── pre-gate-and-routing.md           # Pre-gate + five entry routes + improvement diagnosis
 │   └── meeting-action-extractor-example.md  # Full Skill example
 ├── README.md                             # This file (bilingual)
 ├── CHANGELOG.md                          # Version changelog
@@ -266,16 +301,30 @@ Any created Skill must pass security check. Any red flag below = reject:
 6. Obfuscated code (compressed, encoded, minified)
 7. Accessing browser cookies/sessions or credential files
 
-### 6-Layer Validation
+### Pre-Gate
 
-| Layer | What to validate | Method |
-|-------|-----------------|--------|
-| 1 | Can it run? | Functional test |
-| 2 | Can it trigger correctly? | 5 positive + 3 negative real user queries |
-| 3 | Dogfood simulation | Format match + rule compliance + edge cases |
-| 4 | Quantitative scoring | 0-10 scale, main use cases ≥5 |
-| 5 | Baseline comparison | With Skill vs without Skill, verify value-add |
-| 6 | Iterative fix | Fix failures → re-run validation |
+| Check | Pass condition | Fail action |
+|-------|---------------|-------------|
+| Worth doing? | Repeated use + automation value | Dissuade (one-time tasks don't need Skills) |
+| Already exists? | No perfect match on SkillHub | Guide to existing Skill |
+| Should split? | Single core scenario | Split into multiple Skills |
+
+### Five Entry Routes
+
+| Route | Scenario | Starting point |
+|-------|----------|----------------|
+| R1 From scratch | User has only a vague idea | Interview to lock down requirements |
+| R2 From conversation | Existing conversation context | Extract elements + fill gaps |
+| R3 From existing material | User has docs/specs | Convert material to Skill structure |
+| R4 From draft | User has a half-finished draft | Diagnose + improve |
+| R5 Improve existing skill | Existing Skill has issues | Symptom diagnosis + fix |
+
+### Layered Validation
+
+| Level | When to use | What to validate |
+|-------|-------------|-----------------|
+| Lightweight (default) | Beginners / quick check | "Run it for you" — execute main use cases, confirm it runs + triggers |
+| Heavy (optional) | Power users / rigorous scenarios | Full 6-layer: Schema → Security (7) → Trigger (5+3) → Dogfood → Scoring → Baseline |
 
 ## Documentation
 
@@ -284,6 +333,7 @@ Any created Skill must pass security check. Any red flag below = reject:
 | [Interview Flow](references/interview-flow.md) | B1-B6 rules, round templates, recursive search pattern |
 | [Interview Methods](references/interview-methods.md) | Behavioral probing, bias detection, option design |
 | [Benchmarking Guide](references/benchmarking-guide.md) | SkillHub API usage, quality ranking formula, 9-dimension template |
+| [Pre-Gate & Routing](references/pre-gate-and-routing.md) | Pre-gate logic, five entry routes, skill improvement diagnosis |
 | [Full Example](references/meeting-action-extractor-example.md) | Meeting action extractor Skill example |
 
 ## Relationship with skill-publisher

@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.0.0] - 2026-06-12
+
+### Added
+- **Pre-Gate (前置闸门)**: Phase -1 added — judges "worth doing? / already exists? / too big?" before investing time.劝退 one-time tasks.
+- **Five Entry Routes**: R1 从零想法 / R2 从对话提取 / R3 从现成材料 / R4 从草稿完善 / R5 改进已有skill
+- **Level Adaptation (水平自适应)**: Auto-detects user level from language. Never asks "你几级". Adapts terminology depth in real-time.
+- **One Question at a Time (一次一问)**: Each interview round asks only 1 question + 2-3 options. No more 3-questions-at-once.
+- **Confirmation Gate (确认门)**: After 4 elements gathered, present one-page summary. "理解没对齐，绝不动手写。"
+- **Layered Validation (分层验证)**: Default lightweight "跑给你看" for beginners; optional heavy 6-layer validation for power users.
+- **Last Mile (最后一公里)**: Phase 3 now includes local install + self-test trigger + packaging instructions.
+- **Description Optimization Iteration**: After writing initial description, test with 5 real user phrases. Auto-iterate if trigger accuracy is low. Max 3 rounds.
+- **Skill Improvement Diagnosis**: Symptom → Check Point → Action diagnosis script for fixing broken skills (not triggering / running off / too verbose).
+- **New reference file**: pre-gate-and-routing.md — pre-gate logic + 5 entry routes + improvement diagnosis
+
+### Changed
+- Interview flow: 2-3 questions per round → 1 question per round
+- Convergence check: 5 elements → 4 elements (做什么/何时触发/输入输出/边界)
+- Step 4: mandatory 6-layer → layered (default lightweight + optional heavy)
+- Phase 3: publish only → publish + last mile (install + self-test + packaging)
+- SKILL.md: 240 lines → 191 lines (under 200 target!)
+
+### Removed
+- Mandatory 6-layer validation for all users (replaced by layered approach)
+
 ## [4.3.1] - 2026-07-11
 
 ### Added
