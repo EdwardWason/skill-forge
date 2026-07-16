@@ -1,8 +1,8 @@
-# 技能熔炉 v5.0
+# 技能熔炉 v5.1
 
 > 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v5.0 新增前置闸门 + 五类入口路由 + 一次一问 + 分层验证 + 最后一公里。
 
-[![版本](https://img.shields.io/badge/version-5.0.0-blue)](https://github.com/EdwardWason/skill-forge)
+[![版本](https://img.shields.io/badge/version-5.1.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![许可证](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
@@ -11,12 +11,13 @@
 | 触发词 | 场景 | 执行流程 |
 |--------|------|---------|
 | **技能熔炉** | 从零创建到评估全流程 | Phase 0→1→2 |
-| **技能评估** / skill评估 / 评估技能 | 已有Skill，评估质量 | Phase 2（SkillHub比对+腾讯9维度） |
+| **技能评估** / skill评估 / 评估技能 | 已有Skill，评估质量 | Phase 2（质量自评+差异化验证） |
 
 > **发布不在本技能范围内**：当用户说"技能发布/发布技能/更新技能/迭代技能"时，应触发独立的 **skill-publisher** 技能。
 
 ## 功能
 
+- **同类预检（Step 0.4）**: 确认门通过后立即搜索SkillHub，避免重复造轮子。四种分支：有更好的→建议安装；有但不够好→提取差异点；无同类→直接创建；可组合→元技能组合+管线编排建议
 - **前置闸门**：动手前判断"值不值得做/有没有现成的/该不该拆"，该劝退就劝退
 - **五类入口路由**：从零想法/从对话提取/从现成材料/从草稿完善/改进已有skill
 - **水平自适应**：从用户措辞自动判断水平，调整用词深度，全程不问"你几级"
@@ -47,8 +48,8 @@ cp -r skill-forge ~/.trae/skills/
 
 在 TRAE SOLO 中，当你说以下内容时，Skill Forge 会自动触发：
 
-- "技能熔炉" — 全流程（前置闸门→创建→评估→发布+最后一公里）
-- "技能评估" — 只做同类比对+腾讯9维度
+- "技能熔炉" — 全流程（前置闸门→入口路由→访谈→确认门→同类预检→创建→验证→评估→发布+最后一公里）
+- "技能评估" — 只做9维度质量自评+差异化验证+盲区修复
 - "技能发布" — 只做GitHub+ClawHub推送+安装自测
 
 ### 两种模式
@@ -60,9 +61,9 @@ cp -r skill-forge ~/.trae/skills/
 
 ```
 Phase -1: 前置闸门 → 值不值得做 → 有没有现成 → 该不该拆
-Phase 0: 入口路由 → 五类入口 → 自适应访谈(一次一问) → 确认门
+Phase 0: 入口路由 → 五类入口 → 自适应访谈(一次一问) → 确认门 → 同类预检(Step 0.4)
 Phase 1: 创建 → Description先行+触发优化 → 4+1模块 → 分层验证
-Phase 2: SkillHub同类比对 → 搜索排名 → 腾讯9维度比对 → 差异化分析
+Phase 2: 质量自评 → 腾讯9维度自评 → 差异化验证 → 盲区修复
 Phase 3: 发布+最后一公里 → 安全审查 → 推送 → 安装自测
 ```
 
@@ -78,6 +79,7 @@ skill-forge/
 │   ├── interview-methods.md              # 访谈方法论深度参考
 │   ├── benchmarking-guide.md             # SkillHub比对指南
 │   ├── pre-gate-and-routing.md           # 前置闸门+五类入口路由+改进诊断
+│   ├── composition-and-pipeline.md       # 组合决策+管线编排+推荐模板
 │   └── meeting-action-extractor-example.md  # 完整Skill示例
 ├── README.md                             # 本文件（中英双语）
 ├── CHANGELOG.md                          # 版本变更日志
@@ -154,8 +156,9 @@ skill-forge/
 |------|------|
 | [访谈流程参考](references/interview-flow.md) | B1-B6规则、轮次模板、递归搜索模式 |
 | [访谈方法论](references/interview-methods.md) | 行为追问、偏误检测、选项法设计 |
-| [比对指南](references/benchmarking-guide.md) | SkillHub API用法、质量排序公式、9维度比对模板 |
+| [比对指南](references/benchmarking-guide.md) | 腾讯9维度自评模板 + 差异化验证 |
 | [前置闸门+入口路由](references/pre-gate-and-routing.md) | 前置闸门逻辑、五类入口路由、Skill改进诊断脚本 |
+| [组合与管线](references/composition-and-pipeline.md) | 组合决策+管线编排+推荐模板 |
 | [完整示例](references/meeting-action-extractor-example.md) | 会议行动项提取器Skill示例 |
 
 ## 与 skill-publisher 的关系
@@ -177,11 +180,11 @@ MIT-0 © 2026 AI花生
 
 ---
 
-# Skill Forge (技能熔炉) v5.0
+# Skill Forge (技能熔炉) v5.1
 
 > Forge → Evaluate, two-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output. v5.0 adds Pre-Gate + Five Entry Routes + One-Question-at-a-Time + Layered Validation + Last Mile.
 
-[![Version](https://img.shields.io/badge/version-5.0.0-blue)](https://github.com/EdwardWason/skill-forge)
+[![Version](https://img.shields.io/badge/version-5.1.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![License](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
@@ -190,12 +193,13 @@ MIT-0 © 2026 AI花生
 | Trigger Words | Scenario | Pipeline |
 |---------------|----------|----------|
 | **技能熔炉** | Create from scratch to evaluation | Phase 0→1→2 |
-| **技能评估** / skill评估 / 评估技能 | Evaluate existing Skill | Phase 2 (SkillHub benchmarking + Tencent 9-dimension) |
+| **技能评估** / skill评估 / 评估技能 | Evaluate existing Skill | Phase 2 (Quality self-assessment + Differentiation validation) |
 
 > **Publishing is out of scope**: When users say "技能发布/发布技能/更新技能/迭代技能", the standalone **skill-publisher** skill should be triggered instead.
 
 ## Features
 
+- **Peer Pre-check (Step 0.4)**: Search SkillHub immediately after confirmation gate to avoid reinventing the wheel. Four branches: better exists → recommend install; exists but insufficient → extract differentiators; no peers → create directly; composable → meta-skill composition + pipeline orchestration
 - **Pre-Gate**: Judges "worth doing? / already exists? / too big?" before investing time. Dissuades one-time tasks.
 - **Five Entry Routes**: R1 from scratch / R2 from conversation / R3 from existing material / R4 from draft / R5 improve existing skill
 - **Level Adaptation**: Auto-detects user level from language. Never asks "你几级". Adapts terminology depth in real-time.
@@ -225,8 +229,8 @@ cp -r skill-forge ~/.trae/skills/
 ## Usage
 
 Skill Forge auto-triggers when you say:
-- "技能熔炉" — Full pipeline (pre-gate → create → evaluate → publish + last mile)
-- "技能评估" — Evaluation only (SkillHub benchmarking + Tencent 9-dimension)
+- "技能熔炉" — Full pipeline (pre-gate → entry routing → interview → confirmation gate → peer pre-check → creation → validation → evaluation → publish + last mile)
+- "技能评估" — Evaluation only (9-dimension quality self-assessment + differentiation validation + blind spot fix)
 - "技能发布" — Publish only (GitHub + ClawHub push + install self-test)
 
 ### Two Modes
@@ -238,9 +242,9 @@ Skill Forge auto-triggers when you say:
 
 ```
 Phase -1: Pre-Gate → Worth doing? → Already exists? → Should split?
-Phase 0: Entry routing → Five entry routes → Adaptive interview (one question at a time) → Confirmation gate
+Phase 0: Entry routing → Five entry routes → Adaptive interview (one question at a time) → Confirmation gate → Peer pre-check (Step 0.4)
 Phase 1: Creation → Description-first + trigger optimization → 4+1 modules → Layered validation
-Phase 2: SkillHub peer benchmarking → Search & rank → Tencent 9-dimension comparison → Gap analysis
+Phase 2: Quality self-assessment → Tencent 9-dimension self-assessment → Differentiation validation → Blind spot fix
 Phase 3: Publish + last mile → Security audit → Push → Install self-test
 ```
 
@@ -256,6 +260,7 @@ skill-forge/
 │   ├── interview-methods.md              # Interview methodology
 │   ├── benchmarking-guide.md             # SkillHub benchmarking guide
 │   ├── pre-gate-and-routing.md           # Pre-gate + five entry routes + improvement diagnosis
+│   ├── composition-and-pipeline.md       # Composition decisions + pipeline orchestration + templates
 │   └── meeting-action-extractor-example.md  # Full Skill example
 ├── README.md                             # This file (bilingual)
 ├── CHANGELOG.md                          # Version changelog
@@ -332,8 +337,9 @@ Any created Skill must pass security check. Any red flag below = reject:
 |----------|-------------|
 | [Interview Flow](references/interview-flow.md) | B1-B6 rules, round templates, recursive search pattern |
 | [Interview Methods](references/interview-methods.md) | Behavioral probing, bias detection, option design |
-| [Benchmarking Guide](references/benchmarking-guide.md) | SkillHub API usage, quality ranking formula, 9-dimension template |
+| [Benchmarking Guide](references/benchmarking-guide.md) | Tencent 9-dimension self-assessment template + differentiation validation |
 | [Pre-Gate & Routing](references/pre-gate-and-routing.md) | Pre-gate logic, five entry routes, skill improvement diagnosis |
+| [Composition & Pipeline](references/composition-and-pipeline.md) | Composition decisions + pipeline orchestration + templates |
 | [Full Example](references/meeting-action-extractor-example.md) | Meeting action extractor Skill example |
 
 ## Relationship with skill-publisher

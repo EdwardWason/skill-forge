@@ -3,7 +3,7 @@ name: "skill-forge"
 description: "技能熔炉 — 锻造/评估/发布 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度；说 技能发布/发布技能 只做GitHub+ClawHub推送。Do NOT use for editing existing skills, skill security vetting, or general coding tasks."
 ---
 
-# 技能熔炉 v5.0
+# 技能熔炉 v5.1
 
 锻造 → 评估 → 发布，三入口全流程交付可自动触发、稳定输出的 Skill。
 
@@ -11,7 +11,7 @@ description: "技能熔炉 — 锻造/评估/发布 Skill。说 技能熔炉 走
 
 | 触发词 | 入口 | 执行流程 |
 |--------|------|---------|
-| 技能熔炉 | Phase -1 | 前置闸门→入口路由→访谈→确认门→创建→验证→比对→发布 |
+| 技能熔炉 | Phase -1 | 前置闸门→入口路由→访谈→确认门→同类预检→创建→验证→评估→发布 |
 | 技能评估 / skill评估 / 评估技能 | Phase 2 | 只做 SkillHub 同类比对 + 腾讯9维度 |
 | 技能发布 / 发布技能 | Phase 3 | 只做 GitHub + ClawHub 推送 |
 
@@ -108,7 +108,25 @@ metadata: { author, version, category }
 这样对吗？没问题我就开始写了。
 ```
 
-用户确认 → Phase 1。用户纠正 → 修正后重新确认。
+用户确认 → Step 0.4 同类预检。用户纠正 → 修正后重新确认。
+
+### Step 0.4: 同类预检（创建前）
+
+**【入口：技能熔炉】** — 读取 [`references/composition-and-pipeline.md`](references/composition-and-pipeline.md) 获取组合与管线编排方法论。
+
+**确认门通过后，立即搜索 SkillHub，避免重复造轮子：**
+
+| 分支 | 条件 | 动作 |
+|------|------|------|
+| **a) 有现成的更好** | 找到高质量同类(≥7分) | 建议安装已有Skill，结束流程 |
+| **b) 有但不够好** | 有同类但有明显差距 | 提取差异点→作为Phase 1设计输入 |
+| **c) 无同类** | 没有同类Skill | 直接进入Phase 1创建 |
+| **d) 可组合** | 需求可分解为多个原子操作 | 元技能组合+管线编排建议 |
+
+**分支d详解**：需求分解为原子操作→逐个搜索→评估覆盖率：
+- 全组合：所有步骤都有高质量Skill→建议安装+编排管线，无需新建
+- 部分组合：部分有高质量→安装已有的+只新建缺失的
+- 全新建：无高质量同类→直接Phase 1
 
 ---
 
@@ -146,17 +164,19 @@ metadata: { author, version, category }
 
 ---
 
-## Phase 2: SkillHub 同类比对 + 腾讯9维度评估
+## Phase 2: 质量自评 + 差异化验证
 
 **【入口：技能评估 / skill评估 / 评估技能】** — 读取 [`references/benchmarking-guide.md`](references/benchmarking-guide.md)。
 
-### Step 5a: 搜索排名 — SkillHub API，`downloads × 0.4 + installs × 0.3 + stars × 0.3`，取Top 3。
+> **角色调整**：同类搜索已前移到 Step 0.4（创建前）。Phase 2 现在聚焦于创建后的质量自评和差异化验证。
 
-### Step 5b: 腾讯9维度比对 — 触发精准度/关键词前置/Do NOT/单一职责/4模块/输出具体性/实习生测试/示例覆盖/体积控制。
+### Step 5a: 腾讯9维度自评 — 触发精准度/关键词前置/Do NOT/单一职责/4模块/输出具体性/实习生测试/示例覆盖/体积控制。逐维度自评，标出弱项。
 
-### Step 5c: 差异化与盲区 — 重复→建议安装已有；有差异→记录；有盲区→列出修复。
+### Step 5b: 差异化验证 — 如果 Step 0.4 发现有同类，验证差异化优势是否落地。如果无同类，跳过。
 
-### Step 5d: 用户决策 — 采纳修复 / 保持原样 / 安装已有。**用户决策为最终决策。**
+### Step 5c: 盲区修复 — 列出弱项和盲区，附腾讯手册依据，提出修复方案。
+
+### Step 5d: 用户决策 — 采纳修复 / 保持原样。**用户决策为最终决策。**
 
 ---
 
@@ -184,7 +204,8 @@ metadata: { author, version, category }
 
 - **[pre-gate-and-routing.md](references/pre-gate-and-routing.md)** — Phase -1 闸门 + 五类入口路由 + 改进诊断脚本
 - **[interview-flow.md](references/interview-flow.md)** — 一次一问 + 水平自适应 + 确认门 + B1-B6规则
+- **[composition-and-pipeline.md](references/composition-and-pipeline.md)** — Step 0.4 元技能组合 + 管线编排方法论
 - **[interview-methods.md](references/interview-methods.md)** — 行为追问、偏误检测、选项法深度参考
-- **[benchmarking-guide.md](references/benchmarking-guide.md)** — SkillHub API + 质量排序 + 腾讯9维度模板
+- **[benchmarking-guide.md](references/benchmarking-guide.md)** — 腾讯9维度自评模板 + 差异化验证
 - **[publishing-guide.md](references/publishing-guide.md)** — 仓库结构 + 安全审查 + GitHub API降级 + ClawHub CLI
 - **[meeting-action-extractor-example.md](references/meeting-action-extractor-example.md)** — 完整Skill示例

@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.1.0] - 2026-06-12
+
+### Added
+- **Step 0.4 同类预检**: 确认门通过后立即搜索SkillHub，避免重复造轮子。四种分支：a)有更好的→建议安装 b)有但不够好→提取差异点 c)无同类→直接创建 d)可组合→元技能组合
+- **元技能组合+管线编排**: 需求分解为原子操作→逐个搜索→评估覆盖率。三种管线模式：顺序/分支/条件
+- **New reference file**: composition-and-pipeline.md — 组合决策+管线编排+推荐模板
+
+### Changed
+- Phase 2 角色调整：从"SkillHub同类比对"→"质量自评+差异化验证"。同类搜索已前移到Step 0.4（创建前）
+- benchmarking-guide.md 重写：从"SkillHub API比对指南"→"腾讯9维度自评+差异化验证指南"
+- Step 5a-5d 重构：5a自评→5b差异化验证→5c盲区修复→5d用户决策
+
+### Architecture
+- 创建前搜索（Step 0.4）避免最大的浪费：创建完才发现已有更好的
+- 创建时锚定同类竞品，设计明确的差异化优势
+- 元技能组合建议：很多需求不需要新建，组合已有Skill就能解决
+
 ## [5.0.0] - 2026-06-12
 
 ### Added
