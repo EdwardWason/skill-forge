@@ -1,8 +1,8 @@
-# 技能熔炉 v5.2.2
+# 技能熔炉 v5.2.3
 
-> 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v5.2 对齐 5 大撰写原则 + authoring-principles；v5.2.1 修复 R4 入口同类预检跳过 + 声明-行为不一致；v5.2.2 SkillHub 版本号冲突解决。
+> 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v5.2 对齐 5 大撰写原则 + authoring-principles；v5.2.1 修复 R4 入口同类预检跳过 + 声明-行为不一致；v5.2.2 SkillHub 版本号冲突解决；v5.2.3 ClawHub 后端版本号锁定解决。
 
-[![版本](https://img.shields.io/badge/version-5.2.2-blue)](https://github.com/EdwardWason/skill-forge)
+[![版本](https://img.shields.io/badge/version-5.2.3-blue)](https://github.com/EdwardWason/skill-forge)
 [![许可证](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
@@ -180,11 +180,11 @@ MIT-0 © 2026 AI花生
 
 ---
 
-# Skill Forge (技能熔炉) v5.2.2
+# Skill Forge (技能熔炉) v5.2.3
 
-> Forge → Evaluate, two-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output. v5.2 aligns with 5 authoring principles + authoring-principles; v5.2.1 fixes R4 entry same-class pre-check skip + description-behavior mismatch; v5.2.2 resolves SkillHub version conflict.
+> Forge → Evaluate, two-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output. v5.2 aligns with 5 authoring principles + authoring-principles; v5.2.1 fixes R4 entry same-class pre-check skip + description-behavior mismatch; v5.2.2 resolves SkillHub version conflict; v5.2.3 resolves ClawHub backend version lock.
 
-[![Version](https://img.shields.io/badge/version-5.2.2-blue)](https://github.com/EdwardWason/skill-forge)
+[![Version](https://img.shields.io/badge/version-5.2.3-blue)](https://github.com/EdwardWason/skill-forge)
 [![License](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
