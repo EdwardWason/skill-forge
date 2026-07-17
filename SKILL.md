@@ -1,11 +1,11 @@
 ---
 name: "skill-forge"
 slug: "skill-forge-ai"
-displayName: "Skill Forge"
+displayName: "Skill Forge 技能熔炉"
 description: "技能熔炉 — 锻造/评估 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度。发布环节请用 skill-publisher。Do NOT use for editing existing skills, skill security vetting, skill publishing (use skill-publisher), or general coding tasks."
-version: "6.0.0"
+version: "6.0.1"
 license: "MIT-0"
-summary: "锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v6.0.0 两入口架构 + 5大撰写原则 + 前置闸门 + 五类入口 + 同类预检。发布由 skill-publisher 承接。"
+summary: "锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v6.0.1 修复 README 中英文版本号不一致 + displayName 双语化（规则 33）。发布由 skill-publisher 承接。"
 allowed-tools: "Read, Write, Edit, Glob, Grep, LS, AskUserQuestion"
 metadata:
   openclaw:
@@ -21,7 +21,7 @@ metadata:
     always: false
 ---
 
-# 技能熔炉 v6.0.0
+# 技能熔炉 v6.0.1
 
 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。发布环节由独立的 skill-publisher 技能承接。
 

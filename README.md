@@ -1,8 +1,8 @@
-# 技能熔炉 v5.2.4
+# 技能熔炉 v6.0.1
 
-> 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v5.2 对齐 5 大撰写原则 + authoring-principles；v5.2.1 修复 R4 入口同类预检跳过 + 声明-行为不一致；v5.2.2 SkillHub 版本号冲突解决；v5.2.3/5.2.4 ClawHub 后端版本号锁定重试。
+> 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v6.0.1 修复 README 中英文版本号不一致 + displayName 双语化（规则 33）。
 
-[![版本](https://img.shields.io/badge/version-5.2.4-blue)](https://github.com/EdwardWason/skill-forge)
+[![版本](https://img.shields.io/badge/version-6.0.1-blue)](https://github.com/EdwardWason/skill-forge)
 [![许可证](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
@@ -48,9 +48,10 @@ cp -r skill-forge ~/.trae/skills/
 
 在 TRAE SOLO 中，当你说以下内容时，Skill Forge 会自动触发：
 
-- "技能熔炉" — 全流程（前置闸门→入口路由→访谈→确认门→同类预检→创建→验证→评估→发布+最后一公里）
-- "技能评估" — 只做9维度质量自评+差异化验证+盲区修复
-- "技能发布" — 只做GitHub+ClawHub推送+安装自测
+- "技能熔炉" — 全流程（前置闸门→入口路由→访谈→确认门→同类预检→创建→验证→评估→发布交接提醒）
+- "技能评估" / "skill评估" / "评估技能" — 只做9维度质量自评+差异化验证+盲区修复
+
+> **"技能发布"不会触发本技能**：当用户说"技能发布/发布技能/更新技能/迭代技能"时，应触发独立的 **skill-publisher** 技能。
 
 ### 两种模式
 
@@ -180,11 +181,11 @@ MIT-0 © 2026 AI花生
 
 ---
 
-# Skill Forge (技能熔炉) v5.2.4
+# Skill Forge (技能熔炉) v6.0.1
 
-> Forge → Evaluate, two-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output. v5.2 aligns with 5 authoring principles + authoring-principles; v5.2.1 fixes R4 entry same-class pre-check skip + description-behavior mismatch; v5.2.2 resolves SkillHub version conflict; v5.2.3/v5.2.4 retry ClawHub backend version lock.
+> Forge → Evaluate, two-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output. v6.0.1 fixes README bilingual version mismatch + displayName bilingualization (rule 33).
 
-[![Version](https://img.shields.io/badge/version-5.2.4-blue)](https://github.com/EdwardWason/skill-forge)
+[![Version](https://img.shields.io/badge/version-6.0.1-blue)](https://github.com/EdwardWason/skill-forge)
 [![License](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
@@ -229,9 +230,10 @@ cp -r skill-forge ~/.trae/skills/
 ## Usage
 
 Skill Forge auto-triggers when you say:
-- "技能熔炉" — Full pipeline (pre-gate → entry routing → interview → confirmation gate → peer pre-check → creation → validation → evaluation → publish + last mile)
-- "技能评估" — Evaluation only (9-dimension quality self-assessment + differentiation validation + blind spot fix)
-- "技能发布" — Publish only (GitHub + ClawHub push + install self-test)
+- "技能熔炉" — Full pipeline (pre-gate → entry routing → interview → confirmation gate → peer pre-check → creation → validation → evaluation → publish handoff reminder)
+- "技能评估" / "skill评估" / "评估技能" — Evaluation only (9-dimension quality self-assessment + differentiation validation + blind spot fix)
+
+> **"技能发布" does NOT trigger this skill**: When users say "技能发布/发布技能/更新技能/迭代技能", the standalone **skill-publisher** skill should be triggered instead.
 
 ### Two Modes
 

@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [6.0.1] - 2026-07-17
+
+### Fixed
+- **README 中英文版本号不一致**：SKILL.md/plugin.json 已是 v6.0.0 但 README.md 中英文仍停留在 v5.2.4。修复为 v6.0.1（规则 29 多文件一致性校验）
+- **README 残留"技能发布"触发描述**：SKILL.md 声明"发布不在本技能范围内"，但 README 仍列"技能发布"为触发词。移除该描述，改为明确声明"技能发布不会触发本技能"（声明-行为一致性）
+- **displayName 语言策略**：displayName 从纯英文 "Skill Forge" 改为双语并列 "Skill Forge 技能熔炉"（规则 33：中文 skill 应用双语并列格式）
+
+### Changed
+- 版本从 6.0.0 升级到 6.0.1（多文件一致性 + 规则 33 适配）
+
 ## [6.0.0] - 2026-07-17
 
 ### Summary
