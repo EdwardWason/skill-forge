@@ -2,7 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
-## [5.1.0] - 2026-06-12
+## [5.2.0] - 2026-07-16
+
+### Added
+- 新增 `references/authoring-principles.md`（从 skill-auditor/skill-authoring-guide.md 反哺的 5 大原则 + frontmatter 规范 + 6 大反模式 + 10 项自检清单）
+- SKILL.md frontmatter 补齐 version / license / allowed-tools / metadata.openclaw（修复与 plugin.json 的声明-行为不一致）
+- References 列表新增 authoring-principles.md 索引
+
+### Changed
+- "三条铁律"扩展为引用 5 大原则（补充最小权限 + 用户知情 + 权力比例适当，原铁律2 一Skill一职并入原则 1）
+- SKILL.md 格式教学示例补齐完整 frontmatter（含 metadata.openclaw 子结构）
+- Step 4a Schema 检查扩展为指向 `authoring-principles.md` §六的 10 项自检清单
+- 标题从 "v5.1" 更新为 "v5.2"
+
+### Fixed
+- 修复 SKILL.md frontmatter 与 plugin.json 版本号不一致（D-M3 声明-行为不一致：plugin.json 有 version=5.1.0，frontmatter 未声明 version）
+- 修复 `references/publishing-guide.md` 断链引用（4.1.0 已迁移到 skill-publisher，清理 SKILL.md 正文和 References 列表中的残留引用）
+- 修复 CHANGELOG 日期乱序：[5.0.0] 和 [5.1.0] 日期从 2026-06-12 修正为 2026-07-12 / 2026-07-13（与 [4.3.1] - 2026-07-11 的时序一致，5.x 应晚于 4.x）
+
+## [5.1.0] - 2026-07-13
 
 ### Added
 - **Step 0.4 同类预检**: 确认门通过后立即搜索SkillHub，避免重复造轮子。四种分支：a)有更好的→建议安装 b)有但不够好→提取差异点 c)无同类→直接创建 d)可组合→元技能组合
@@ -19,7 +37,7 @@ All notable changes to this project will be documented in this file.
 - 创建时锚定同类竞品，设计明确的差异化优势
 - 元技能组合建议：很多需求不需要新建，组合已有Skill就能解决
 
-## [5.0.0] - 2026-06-12
+## [5.0.0] - 2026-07-12
 
 ### Added
 - **Pre-Gate (前置闸门)**: Phase -1 added — judges "worth doing? / already exists? / too big?" before investing time.劝退 one-time tasks.
