@@ -1,7 +1,7 @@
 {
   "name": "skill-forge",
-  "description": "技能熔炉 — 锻造/评估 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度。发布环节请用 skill-publisher。v6.0.1 修复 README 中英文版本号不一致 + displayName 双语化（规则 33）。",
-  "version": "6.0.1",
+  "description": "技能熔炉 — 锻造/评估 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度。发布环节请用 skill-publisher。v6.1.0 归集单一开发入口。",
+  "version": "6.1.0",
   "author": {
     "name": "AI花生"
   },

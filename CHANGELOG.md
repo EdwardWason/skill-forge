@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [6.1.0] - 2026-07-17
+
+### Changed
+- 版本跳跃到 6.1.0，绕过 ClawHub 后端 6.0.0/6.0.1/6.0.2 版本号锁定
+- 归集为单一开发入口：后续所有 skill-forge 修改只在 `skill-forge-v32-fixed` 目录进行
+- summary 更新为"归集单一开发入口"
+
+## [6.0.2] - 2026-07-17
+
+### Fixed
+- ClawHub 后端版本号锁定：6.0.1 publish 返回 "already exists" 但 inspect 显示 Latest=5.2.4。递增到 6.0.2 绕过锁定
+
 ## [6.0.1] - 2026-07-17
 
 ### Fixed
