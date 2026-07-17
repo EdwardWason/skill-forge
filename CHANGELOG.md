@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.2.4] - 2026-07-17
+
+### Fixed
+- 同 [5.2.1] 的所有修复（R4 入口同类预检 + 声明-行为不一致 + summary/plugin.json 同步）
+- ClawHub 后端版本号锁定：5.2.3 publish 返回成功但 inspect not found，递增到 5.2.4 重试
+
+### Changed
+- 版本从 5.2.3 升级到 5.2.4（ClawHub 后端版本号锁定重试）
+
 ## [5.2.3] - 2026-07-17
 
 ### Fixed
