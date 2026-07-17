@@ -1,8 +1,8 @@
-# 技能熔炉 v5.1
+# 技能熔炉 v5.2.1
 
-> 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v5.0 新增前置闸门 + 五类入口路由 + 一次一问 + 分层验证 + 最后一公里。
+> 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v5.2 对齐 5 大撰写原则 + authoring-principles；v5.2.1 修复 R4 入口同类预检跳过 + 声明-行为不一致。
 
-[![版本](https://img.shields.io/badge/version-5.1.0-blue)](https://github.com/EdwardWason/skill-forge)
+[![版本](https://img.shields.io/badge/version-5.2.1-blue)](https://github.com/EdwardWason/skill-forge)
 [![许可证](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
@@ -180,11 +180,11 @@ MIT-0 © 2026 AI花生
 
 ---
 
-# Skill Forge (技能熔炉) v5.1
+# Skill Forge (技能熔炉) v5.2.1
 
-> Forge → Evaluate, two-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output. v5.0 adds Pre-Gate + Five Entry Routes + One-Question-at-a-Time + Layered Validation + Last Mile.
+> Forge → Evaluate, two-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output. v5.2 aligns with 5 authoring principles + authoring-principles; v5.2.1 fixes R4 entry same-class pre-check skip + description-behavior mismatch.
 
-[![Version](https://img.shields.io/badge/version-5.1.0-blue)](https://github.com/EdwardWason/skill-forge)
+[![Version](https://img.shields.io/badge/version-5.2.1-blue)](https://github.com/EdwardWason/skill-forge)
 [![License](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 

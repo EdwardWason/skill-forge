@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.2.1] - 2026-07-17
+
+### Fixed
+- **R4 入口同类预检跳过问题**：R4（从草稿完善）原流程直接跳到 Step 4 验证，绕过了确认门和 Step 0.4 同类预检。现补全为"反推四要素→确认门→Step 0.4 同类预检→补全→验证"，确保即使用户带着成熟草稿也不跳过 SkillHub 同类搜索比对
+- **R2/R3 入口同类预检指向不明确**：路由表和 references 中"→确认门"改为"→确认门→Step 0.4 同类预检"，消除走完确认门直接进 Phase 1 的歧义
+- **Step 0.4 适用范围声明**：明确"所有创建类入口（R1/R2/R3/R4）必须执行，R5 改进类跳过"，避免执行时遗漏
+- **声明-行为不一致（Critical）**：description 移除"技能发布"触发词和"只做GitHub+ClawHub推送"声明，入口检测表移除"技能发布"行，Phase 3 改为"发布交接提醒"，明确发布由 skill-publisher 承接
+- **summary 版本信息过时**：更新到 v5.2.1，反映本次修复内容
+- **plugin.json description 不一致**：同步为与 SKILL.md description 一致
+
+### Changed
+- 版本从 5.2.0 升级到 5.2.1
+- Phase 3 从"发布 + 最后一公里"改为"发布交接提醒"（发布执行逻辑已移交给 skill-publisher）
+
 ## [5.2.0] - 2026-07-16
 
 ### Added

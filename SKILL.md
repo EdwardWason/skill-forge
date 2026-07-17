@@ -2,10 +2,10 @@
 name: "skill-forge"
 slug: "skill-forge-ai"
 displayName: "Skill Forge"
-description: "技能熔炉 — 锻造/评估/发布 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度；说 技能发布/发布技能 只做GitHub+ClawHub推送。Do NOT use for editing existing skills, skill security vetting, or general coding tasks."
-version: "5.2.0"
+description: "技能熔炉 — 锻造/评估 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度。发布环节请用 skill-publisher。Do NOT use for editing existing skills, skill security vetting, skill publishing (use skill-publisher), or general coding tasks."
+version: "5.2.1"
 license: "MIT-0"
-summary: "锻造 → 评估 → 发布，三入口全流程交付可自动触发、稳定输出的 Skill。v5.2 对齐 5 大撰写原则 + 修复 frontmatter 与 plugin.json 声明-行为不一致。"
+summary: "锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v5.2.1 修复 R4 入口同类预检跳过 + 声明-行为不一致。发布由 skill-publisher 承接。"
 allowed-tools: "Read, Write, Edit, Glob, Grep, LS, AskUserQuestion"
 metadata:
   openclaw:
@@ -21,19 +21,20 @@ metadata:
     always: false
 ---
 
-# 技能熔炉 v5.2
+# 技能熔炉 v5.2.1
 
-锻造 → 评估 → 发布，三入口全流程交付可自动触发、稳定输出的 Skill。
+锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。发布环节由独立的 skill-publisher 技能承接。
 
 ## 入口检测
 
 | 触发词 | 入口 | 执行流程 |
 |--------|------|---------|
-| 技能熔炉 | Phase -1 | 前置闸门→入口路由→访谈→确认门→同类预检→创建→验证→评估→发布 |
+| 技能熔炉 | Phase -1 | 前置闸门→入口路由→访谈→确认门→同类预检→创建→验证→评估→发布交接提醒 |
 | 技能评估 / skill评估 / 评估技能 | Phase 2 | 只做 SkillHub 同类比对 + 腾讯9维度 |
-| 技能发布 / 发布技能 | Phase 3 | 只做 GitHub + ClawHub 推送 |
 
 **检测到触发词后，立即跳转到对应 Phase，不执行前面的阶段。**
+
+**发布不在本技能范围内**：当用户说"技能发布/发布技能/更新技能/迭代技能"时，应触发 skill-publisher，不是本技能。
 
 ## 撰写原则（5 大原则，必读）
 
@@ -120,9 +121,9 @@ metadata:
 | 入口 | 信号 | 策略 |
 |------|------|------|
 | R1 从零想法 | "我想做个skill" | 自适应访谈（Step 0.2） |
-| R2 从对话提取 | "把刚才对话变成skill" | 扫描上下文→提取步骤→生成草稿→确认门 |
-| R3 从现成材料 | 给文档/SOP | 分析材料→反推四要素→补缺→确认门 |
-| R4 从草稿完善 | 给半成品SKILL.md | 检查缺失模块→补全→验证 |
+| R2 从对话提取 | "把刚才对话变成skill" | 扫描上下文→提取步骤→生成草稿→确认门→Step 0.4 |
+| R3 从现成材料 | 给文档/SOP | 分析材料→反推四要素→补缺→确认门→Step 0.4 |
+| R4 从草稿完善 | 给半成品SKILL.md | 反推四要素→确认门→Step 0.4 同类预检→补全→验证 |
 | R5 改进已有skill | "不触发/跑偏/太啰嗦" | 诊断：症状→检查点→动作→修复→验证 |
 
 ### Step 0.2: 自适应访谈（2-5轮，一次一问）
@@ -151,6 +152,8 @@ metadata:
 ### Step 0.4: 同类预检（创建前）
 
 **【入口：技能熔炉】** — 读取 [`references/composition-and-pipeline.md`](references/composition-and-pipeline.md) 获取组合与管线编排方法论。
+
+**适用范围**：所有创建类入口（R1/R2/R3/R4）的确认门通过后必须执行。R5 改进类跳过（走诊断模式）。**即使用户带着成熟的想法、现成仓库、教程材料或半成品草稿调用，也不能跳过此环节**——必须先收敛递归转写为四要素 plan，确认门对齐后再做同类预检。
 
 **确认门通过后，立即搜索 SkillHub，避免重复造轮子：**
 
@@ -218,23 +221,15 @@ metadata:
 
 ---
 
-## Phase 3: 发布 + 最后一公里
+## 发布交接提醒
 
-**【入口：技能发布 / 发布技能】** — 发布流程的完整方法论（仓库结构 / 安全审查 / GitHub API 降级 / ClawHub CLI）由独立的 skill-publisher 技能承接，本 Phase 仅给出最后一公里提示。
+**触发条件**：Phase 2 评估完成（Step 5d 用户选择"保持原样"或"采纳修复且修复完成"），且用户未选择"直接安装已有"。
 
-### Step 6: 仓库结构 — SKILL.md / README.md(双语) / CHANGELOG.md / LICENSE(MIT-0) / .gitignore / plugin.json
+**触发时提示**：
 
-### Step 7: 安全审查 — 凭证泄露/本地路径/危险命令三类扫描，全部PASS才继续。
+> Skill 已通过锻造与评估。如需发布到 GitHub + ClawHub + SkillHub，请说"技能发布"或"发布技能"调用 **skill-publisher** 技能，它负责：前置条件校验 → 仓库结构生成 → 安全审查 → 版本号查重 → 三平台推送 → 发布后验证 → 本地安装同步。
 
-### Step 8: GitHub推送 — 优先git push，失败降级为REST API。创建Release。
-
-### Step 9: ClawHub发布 — `clawhub publish --tags "<ASCII-only>"`（中文报错！）
-
-### Step 10: 最后一公里 — 告诉用户：
-1. Skill放在哪个目录
-2. 怎么确认真的装上了
-3. 用真实说法自测会不会被触发
-4. 要发给别人怎么打包
+**不要在本技能内执行任何发布操作。** 发布是独立技能 skill-publisher 的职责，本技能仅负责锻造与评估。
 
 ---
 

@@ -65,7 +65,7 @@ When user says "把刚才对话变成skill":
    - 何时触发: based on what user said to start
    - 输入输出: based on actual input/output
    - 边界: based on what user rejected or corrected
-4. Present summary → 确认门
+4. Present summary → 确认门 → **Step 0.4 同类预检**（不可跳过）
 
 ### R3: Material Analysis Method
 
@@ -78,16 +78,19 @@ When user provides a document/SOP:
    - 输入输出: what goes in, what comes out?
    - 边界: what's explicitly excluded?
 3. Fill gaps with targeted questions (max 3)
-4. Present summary → 确认门
+4. Present summary → 确认门 → **Step 0.4 同类预检**（不可跳过）
 
 ### R4: Draft Completion Method
 
 When user has a half-finished SKILL.md:
 
 1. Check which modules are present: name? description? 任务? 输出格式? 规则? 示例?
-2. Identify missing or weak modules
-3. Complete missing modules based on existing content
-4. Run full validation (Step 4)
+2. **反推四要素**：从半成品草稿反推 做什么/何时触发/输入输出/边界（即使用户带着成熟草稿，也必须收敛递归转写为 plan）
+3. Present summary → 确认门 → **Step 0.4 同类预检**（不可跳过，避免重复造轮子）
+4. 同类预检通过后（无更好同类 or 有差距需新建），补全缺失模块
+5. Run full validation (Step 4)
+
+> **关键约束**：R4 入口即使用户给的是完整草稿，也不能直接跳到 Step 4 验证。必须先走"反推四要素 → 确认门 → 同类预检"流程，确保 SkillHub 同类搜索比对不被遗漏。
 
 ---
 
