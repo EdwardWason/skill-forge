@@ -1,9 +1,27 @@
 ---
 name: "skill-forge"
+slug: "skill-forge-ai"
+displayName: "Skill Forge"
 description: "技能熔炉 — 锻造/评估/发布 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度；说 技能发布/发布技能 只做GitHub+ClawHub推送。Do NOT use for editing existing skills, skill security vetting, or general coding tasks."
+version: "5.2.0"
+license: "MIT-0"
+summary: "锻造 → 评估 → 发布，三入口全流程交付可自动触发、稳定输出的 Skill。v5.2 对齐 5 大撰写原则 + 修复 frontmatter 与 plugin.json 声明-行为不一致。"
+allowed-tools: "Read, Write, Edit, Glob, Grep, LS, AskUserQuestion"
+metadata:
+  openclaw:
+    skillKey: "skill-forge"
+    emoji: "⚒️"
+    homepage: "https://github.com/EdwardWason/skill-forge"
+    os: ["windows", "macos", "linux"]
+    requires:
+      bins: []
+      env: []
+    primaryEnv: ""
+    envVars: []
+    always: false
 ---
 
-# 技能熔炉 v5.1
+# 技能熔炉 v5.2
 
 锻造 → 评估 → 发布，三入口全流程交付可自动触发、稳定输出的 Skill。
 
@@ -17,24 +35,44 @@ description: "技能熔炉 — 锻造/评估/发布 Skill。说 技能熔炉 走
 
 **检测到触发词后，立即跳转到对应 Phase，不执行前面的阶段。**
 
-## 三条铁律
+## 撰写原则（5 大原则，必读）
 
-**铁律1：Description先行** — AI每轮对话扫描所有Skill的description，模糊=永远不触发=死Skill。
+完整 5 大原则详见 [`references/authoring-principles.md`](references/authoring-principles.md) — 创建 Skill 前必读，作为"声明-行为一致性"的硬门控。原三条铁律映射到原则 1/1/4，补充原则 3（最小权限）和原则 5（用户知情）：
 
-**铁律2：一Skill一职** — 多功能Skill触发混乱、输出不一致。
+| 原则 | 一句话 | 对应原铁律 |
+|------|--------|-----------|
+| 1. 声明-行为一致性 | name/description/metadata/行为四者对齐 | 铁律1 Description先行（扩展） |
+| 2. 权力比例适当 | 副作用强度 ≤ 用户预期 + 披露程度 | （新增） |
+| 3. 最小权限 | allowed-tools 只列实际需要的工具 | （新增） |
+| 4. 渐进式披露 | SKILL.md ≤200 行，细节下沉 references/ | 铁律3 渐进式披露 |
+| 5. 用户知情 | 有副作用必须 README 警告 + 关闭方式 | （新增） |
 
-**铁律3：渐进式披露** — SKILL.md ≤200行，只放导航。详细内容拆入 `references/` + `scripts/` + `assets/`。
+> 原"铁律2 一Skill一职"已并入原则 1（声明-行为一致性）：description 必须明确单一职责，多功能 Skill 触发混乱本质是声明-行为不一致。
 
-## SKILL.md 格式
+## SKILL.md 格式（完整 frontmatter 示例）
 
 ```markdown
 ---
 name: "<skill-name>"
-description: "<做什么 + 何时触发。核心关键词放前200字符>"
+slug: "<skill-name>-ai"
+displayName: "<Skill Name>"
+description: "<做什么 + 何时触发 + Do NOT 范围. 核心关键词放前200字符>"
+version: "<MAJOR.MINOR.PATCH>"
+license: "MIT-0"
+summary: "<一句话摘要>"
 allowed-tools: "<工具白名单>"
-model: "<推荐模型>"
-effort: "<low/medium/high>"
-metadata: { author, version, category }
+metadata:
+  openclaw:
+    skillKey: "<skill-name>"
+    emoji: "<emoji>"
+    homepage: "<https://github.com/...>"
+    os: ["windows", "macos", "linux"]
+    requires:
+      bins: []
+      env: []
+    primaryEnv: ""
+    envVars: []
+    always: false
 ---
 
 # <技能标题>
@@ -151,7 +189,7 @@ metadata: { author, version, category }
 ### Step 4: 分层验证
 
 **默认轻量验证（小白/日常）：**
-- **Step 4a**: Schema检查（8项✅）
+- **Step 4a**: Schema检查 — 完整 10 项自检清单见 [`references/authoring-principles.md`](references/authoring-principles.md) §六（含 frontmatter 字段齐全 / description 三要素 / SKILL.md ≤200 行 / allowed-tools 最小权限 / metadata.openclaw 声明 / 无凭证硬编码 / Lethal Trifecta / CHANGELOG 版本一致 / plugin.json 一致）
 - **Step 4b**: 安全红线（7条RED FLAG）
 - **Step 4c**: 跑给你看 — 拿真实输入跑一遍→看结果→确认/微调
 
@@ -182,7 +220,7 @@ metadata: { author, version, category }
 
 ## Phase 3: 发布 + 最后一公里
 
-**【入口：技能发布 / 发布技能】** — 读取 [`references/publishing-guide.md`](references/publishing-guide.md)。
+**【入口：技能发布 / 发布技能】** — 发布流程的完整方法论（仓库结构 / 安全审查 / GitHub API 降级 / ClawHub CLI）由独立的 skill-publisher 技能承接，本 Phase 仅给出最后一公里提示。
 
 ### Step 6: 仓库结构 — SKILL.md / README.md(双语) / CHANGELOG.md / LICENSE(MIT-0) / .gitignore / plugin.json
 
@@ -202,10 +240,10 @@ metadata: { author, version, category }
 
 ## References
 
+- **[authoring-principles.md](references/authoring-principles.md)** — 5 大撰写原则 + frontmatter 规范 + 6 大反模式 + 10 项自检清单（v5.2 新增，从 skill-auditor 反哺）
 - **[pre-gate-and-routing.md](references/pre-gate-and-routing.md)** — Phase -1 闸门 + 五类入口路由 + 改进诊断脚本
 - **[interview-flow.md](references/interview-flow.md)** — 一次一问 + 水平自适应 + 确认门 + B1-B6规则
 - **[composition-and-pipeline.md](references/composition-and-pipeline.md)** — Step 0.4 元技能组合 + 管线编排方法论
 - **[interview-methods.md](references/interview-methods.md)** — 行为追问、偏误检测、选项法深度参考
 - **[benchmarking-guide.md](references/benchmarking-guide.md)** — 腾讯9维度自评模板 + 差异化验证
-- **[publishing-guide.md](references/publishing-guide.md)** — 仓库结构 + 安全审查 + GitHub API降级 + ClawHub CLI
 - **[meeting-action-extractor-example.md](references/meeting-action-extractor-example.md)** — 完整Skill示例
