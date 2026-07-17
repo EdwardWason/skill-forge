@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [5.2.2] - 2026-07-17
+
+### Fixed
+- 同 [5.2.1] 的所有修复（R4 入口同类预检 + 声明-行为不一致 + summary/plugin.json 同步）
+- SkillHub 版本号冲突：5.2.1 已被其他会话推送，递增到 5.2.2
+
+### Changed
+- 版本从 5.2.1 升级到 5.2.2（SkillHub 版本号冲突解决）
+
 ## [5.2.1] - 2026-07-17
 
 ### Fixed
