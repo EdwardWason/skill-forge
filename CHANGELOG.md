@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [6.0.0] - 2026-07-17
+
+### Summary
+Major version bump to resolve ClawHub backend version lock issue. All v5.2.x features consolidated into a clean major release.
+
+### Features (consolidated from v5.0.0 - v5.2.4)
+- Two-entry architecture: skill-forge (forge+assess) + skill-publisher (publish independently)
+- Pre-gate (Phase -1): Worth doing? Already exists? Too big?
+- Five entry routes: R1 scratch / R2 dialog / R3 material / R4 draft / R5 improve
+- Level adaptation: Auto-detect user level from language
+- One question at a time: Each round asks only 1 question + options
+- Confirmation gate: One-page summary before writing
+- Step 0.4 peer pre-check: Search SkillHub before creating
+- Meta-skill composition: Decompose need + pipeline orchestration
+- Layered validation: Default lightweight + optional heavy
+- 5 authoring principles + 10-item self-check checklist
+- Declaration-behavior consistency (frontmatter = behavior)
+
+### Changed
+- Version bumped from 5.2.5 to 6.0.0 (ClawHub backend version lock resolution)
+
 ## [5.2.5] - 2026-07-17
 
 ### Fixed
