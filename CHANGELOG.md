@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [6.2.0] - 2026-07-19
+
+### Fixed
+- **ClawHub displayName 锁定问题**：ClawHub 平台 inspect 显示 `Skill Forge V32 Fixed`（从开发目录名派生），与 slug `skill-forge-ai` 严重不一致。本次发布显式传 `--name "Skill Forge 技能熔炉"` 参数尝试覆盖（规则 34：clawhub publish 必须显式传 --name，值与 SKILL.md frontmatter displayName 字段一致）
+- **README.md 版本号不同步**：SKILL.md/plugin.json 已是 v6.1.0 但 README.md 中英文仍停留在 v6.0.1（规则 29 多文件一致性校验）。本次同步到 v6.2.0
+- **plugin.json description 同步**：plugin.json description 同步为与 SKILL.md description 一致 + 本次 v6.2.0 修复说明
+
+### Changed
+- 版本从 6.1.0 升级到 6.2.0（ClawHub displayName 修复 + README 版本同步）
+- summary 更新为反映 v6.2.0 修复内容
+
+### Notes
+- 按 skill-publisher 规则 5（Windows 禁 heredoc）+ 规则 7（--tags 仅 ASCII）+ 规则 32（三平台文件差异化矩阵：ClawHub 用临时副本剔除 README.md/CHANGELOG.md）+ 规则 34（--name 显式传参）严格执行
+- 如 ClawHub 后端 displayName 永久锁定无法覆盖，记录待后续 ClawHub 平台修复
+
 ## [6.1.0] - 2026-07-17
 
 ### Changed

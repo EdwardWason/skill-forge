@@ -1,8 +1,8 @@
-# 技能熔炉 v6.0.1
+# 技能熔炉 v6.2.0
 
-> 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v6.0.1 修复 README 中英文版本号不一致 + displayName 双语化（规则 33）。
+> 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v6.2.0 修复 ClawHub displayName 锁定 + README 版本同步（规则 29 多文件一致性）。
 
-[![版本](https://img.shields.io/badge/version-6.0.1-blue)](https://github.com/EdwardWason/skill-forge)
+[![版本](https://img.shields.io/badge/version-6.2.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![许可证](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 
@@ -181,11 +181,11 @@ MIT-0 © 2026 AI花生
 
 ---
 
-# Skill Forge (技能熔炉) v6.0.1
+# Skill Forge (技能熔炉) v6.2.0
 
-> Forge → Evaluate, two-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output. v6.0.1 fixes README bilingual version mismatch + displayName bilingualization (rule 33).
+> Forge → Evaluate, two-entry pipeline delivering Skills that auto-trigger reliably and produce stable, structured output. v6.2.0 fixes ClawHub displayName lock + README version sync (rule 29 multi-file consistency).
 
-[![Version](https://img.shields.io/badge/version-6.0.1-blue)](https://github.com/EdwardWason/skill-forge)
+[![Version](https://img.shields.io/badge/version-6.2.0-blue)](https://github.com/EdwardWason/skill-forge)
 [![License](https://img.shields.io/badge/license-MIT--0-green)](LICENSE)
 [![ClawHub](https://img.shields.io/badge/ClawHub-skill--forge--ai-orange)](https://clawhub.ai/skills/skill-forge-ai)
 

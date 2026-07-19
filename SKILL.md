@@ -3,9 +3,9 @@ name: "skill-forge"
 slug: "skill-forge-ai"
 displayName: "Skill Forge 技能熔炉"
 description: "技能熔炉 — 锻造/评估 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度。发布环节请用 skill-publisher。Do NOT use for editing existing skills, skill security vetting, skill publishing (use skill-publisher), or general coding tasks."
-version: "6.1.0"
+version: "6.2.0"
 license: "MIT-0"
-summary: "锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v6.1.0 归集单一开发入口。发布由 skill-publisher 承接。"
+summary: "锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v6.2.0 修复 ClawHub displayName 锁定 + README 版本同步。发布由 skill-publisher 承接。"
 allowed-tools: "Read, Write, Edit, Glob, Grep, LS, AskUserQuestion"
 metadata:
   openclaw:
@@ -21,7 +21,7 @@ metadata:
     always: false
 ---
 
-# 技能熔炉 v6.1.0
+# 技能熔炉 v6.2.0
 
 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。发布环节由独立的 skill-publisher 技能承接。
 
@@ -49,6 +49,20 @@ metadata:
 | 5. 用户知情 | 有副作用必须 README 警告 + 关闭方式 | （新增） |
 
 > 原"铁律2 一Skill一职"已并入原则 1（声明-行为一致性）：description 必须明确单一职责，多功能 Skill 触发混乱本质是声明-行为不一致。
+
+## 权限声明
+
+本技能实际使用的能力类别（用户须知）：
+
+| 能力类别 | 是否使用 | 说明 |
+|---------|---------|------|
+| 网络访问 | ❌ | 不发起任何网络请求 |
+| 文件读写 | ✅ | 在用户指定目录创建/修改 skill 文件（SKILL.md/references/scripts/assets） |
+| 环境变量 | ❌ | 不读取任何环境变量（无凭证需求） |
+| subprocess | ❌ | 不调用任何外部命令 |
+| 外部 API | ❌ | 不调用任何外部 API（SkillHub 同类搜索由 TRAE 内置工具完成） |
+
+**用户警告**：本技能会在用户指定目录创建/修改 skill 文件。如不希望写入文件，可在确认门前终止流程。本技能不执行任何发布操作（发布由 skill-publisher 承接）。
 
 ## SKILL.md 格式（完整 frontmatter 示例）
 
