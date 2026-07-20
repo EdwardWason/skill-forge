@@ -34,7 +34,7 @@ If each step already has a high-quality Skill, composing them is better than bui
 
 ### Step 2: Search each atomic operation on SkillHub
 
-For each step, search `https://api.skillhub.cn/api/v1/search?q=<keywords>`
+For each step, use TRAE built-in tools (Grep/WebSearch) to search SkillHub for matching skills
 
 ### Step 3: Evaluate each step's coverage
 

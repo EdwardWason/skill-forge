@@ -2,10 +2,10 @@
 name: "skill-forge"
 slug: "skill-forge-ai"
 displayName: "Skill Forge 技能熔炉"
-description: "技能熔炉 — 锻造/评估 Skill。说 技能熔炉 走全流程；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度。发布环节请用 skill-publisher。Do NOT use for editing existing skills, skill security vetting, skill publishing (use skill-publisher), or general coding tasks."
-version: "6.2.0"
+description: "技能熔炉 — 锻造/评估/改进 Skill。说 技能熔炉 走全流程（含R5改进已有skill）；说 技能评估/skill评估/评估技能 只做同类比对+腾讯9维度。可选能力：搜索SkillHub同类技能（通过TRAE内置工具）、修改已有skill文件（仅R5诊断修复路径，需用户确认）。发布环节请用 skill-publisher。Do NOT use for skill security vetting, skill publishing (use skill-publisher), or general coding tasks."
+version: "6.3.0"
 license: "MIT-0"
-summary: "锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。v6.2.0 修复 ClawHub displayName 锁定 + README 版本同步。发布由 skill-publisher 承接。"
+summary: "锻造 → 评估 → 改进，两入口全流程交付可自动触发、稳定输出的 Skill。v6.3.0 修复 ClawHub SkillSpector 审计 findings（声明-行为一致性+网络访问披露）。发布由 skill-publisher 承接。"
 allowed-tools: "Read, Write, Edit, Glob, Grep, LS, AskUserQuestion"
 metadata:
   openclaw:
@@ -21,7 +21,7 @@ metadata:
     always: false
 ---
 
-# 技能熔炉 v6.2.0
+# 技能熔炉 v6.3.0
 
 锻造 → 评估，两入口全流程交付可自动触发、稳定输出的 Skill。发布环节由独立的 skill-publisher 技能承接。
 
@@ -56,13 +56,13 @@ metadata:
 
 | 能力类别 | 是否使用 | 说明 |
 |---------|---------|------|
-| 网络访问 | ❌ | 不发起任何网络请求 |
+| 网络访问 | ✅ | 通过 TRAE 内置工具搜索 SkillHub 同类技能（不直接发起网络请求） |
 | 文件读写 | ✅ | 在用户指定目录创建/修改 skill 文件（SKILL.md/references/scripts/assets） |
 | 环境变量 | ❌ | 不读取任何环境变量（无凭证需求） |
 | subprocess | ❌ | 不调用任何外部命令 |
 | 外部 API | ❌ | 不调用任何外部 API（SkillHub 同类搜索由 TRAE 内置工具完成） |
 
-**用户警告**：本技能会在用户指定目录创建/修改 skill 文件。如不希望写入文件，可在确认门前终止流程。本技能不执行任何发布操作（发布由 skill-publisher 承接）。
+**用户警告**：本技能会在用户指定目录创建/修改 skill 文件（R1-R4 创建新 skill，R5 可修改已有 skill）。R5 修改已有 skill 前需用户确认诊断结果。如不希望写入文件，可在确认门前终止流程。本技能不执行任何发布操作（发布由 skill-publisher 承接）。
 
 ## SKILL.md 格式（完整 frontmatter 示例）
 

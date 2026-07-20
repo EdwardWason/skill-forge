@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+## [6.3.0] - 2026-07-20
+
+### Fixed
+- **ClawHub SkillSpector 审计 Finding 1（Purpose & Capability concern）**: description 说 "Do NOT use for editing existing skills" 但 R5 路由明确支持改进已有 skill（诊断+修复）。将 "editing existing skills" 从 Do NOT 移除，改为更精确的 "skill security vetting, skill publishing"；在 description 中明确披露 R5 改进路由（"含R5改进已有skill"）和可选能力（"修改已有skill文件（仅R5诊断修复路径，需用户确认）"）
+- **ClawHub SkillSpector 审计 Finding 2（Instruction Scope concern）**: composition-and-pipeline.md 显式引用 SkillHub API URL (`https://api.skillhub.cn/api/v1/search`)，但权限声明表说"网络访问 ❌"。修复：1) 移除 API URL 字面量，替换为通用描述"通过 TRAE 内置工具搜索 SkillHub"；2) 权限声明表更新为"网络访问 ✅（通过 TRAE 内置工具搜索 SkillHub 同类技能）"
+- **ClawHub SkillSpector 审计 Finding 3（Persistence & Privilege concern）**: R5 修改已有 skill 的路径未在 frontmatter 边界声明。修复：在 description 和用户警告中明确披露 R5 路径
+
+### Changed
+- 版本从 6.2.0 升级到 6.3.0（ClawHub SkillSpector 审计 findings 修复）
+- description 更新：移除 "editing existing skills" 排除，新增 "改进 Skill" 能力声明 + 可选能力披露
+- summary 更新为反映 v6.3.0 修复内容
+- 权限声明表：网络访问从 ❌ 改为 ✅（通过 TRAE 内置工具）
+- 用户警告段落：增加 R5 修改已有 skill 的说明
+
+### Notes
+- ClawHub SkillSpector v6.2.0 审计结果：Score 49 / MEDIUM / CAUTION / 5 issues
+- 本次修复针对 3 个 concern 级别 finding（Purpose & Capability / Instruction Scope / Persistence & Privilege）
+- 预期 v6.3.0 审计评分将提升
+
 ## [6.2.0] - 2026-07-19
 
 ### Fixed
